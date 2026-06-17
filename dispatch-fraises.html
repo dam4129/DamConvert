@@ -8,8 +8,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --red:#e63946;--rdk:#c1121f;--rlt:#fff0f0;
-  --grn:#2d6a4f;--glt:#d8f3dc;
-  --ora:#f4a261;
+  --grn:#2d6a4f;--glt:#d8f3dc;--ora:#f4a261;
   --bg:#f0f2f5;--card:#fff;--bdr:#e0e3e8;
   --txt:#1a1d23;--mut:#6b7280;
   --sh:0 1px 4px rgba(0,0,0,.09);--r:12px;
@@ -32,27 +31,24 @@ header small{font-size:.75rem;opacity:.8}
 
 .card{background:var(--card);border-radius:var(--r);border:1px solid var(--bdr);box-shadow:var(--sh);margin-bottom:16px;overflow:hidden}
 .ch{padding:11px 16px;border-bottom:1px solid var(--bdr);font-weight:600;font-size:.86rem;background:#fafbfc;display:flex;align-items:center;gap:8px}
-.ch .ml{margin-left:auto;display:flex;gap:6px}
 .cb{padding:15px 16px}
 
 .fl{margin-bottom:13px}.fl:last-child{margin-bottom:0}
-lbl,.lbl{display:block;font-size:.72rem;font-weight:700;color:var(--mut);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
+.lbl{display:block;font-size:.72rem;font-weight:700;color:var(--mut);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
 
 input[type=text],input[type=number],select{width:100%;padding:8px 10px;border:1.5px solid var(--bdr);border-radius:8px;font-size:.88rem;font-family:inherit;background:#fff;color:var(--txt);transition:border-color .15s}
 input:focus,select:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(230,57,70,.08)}
 input[type=number]{-moz-appearance:textfield}
 
-.ig{display:flex;gap:6px}
-.ig input,.ig select{flex:1}
+.ig{display:flex;gap:6px}.ig input,.ig select{flex:1}
 .sfx{display:flex;align-items:center;padding:8px 10px;background:#f4f5f7;border:1.5px solid var(--bdr);border-radius:8px;font-size:.8rem;color:var(--mut);white-space:nowrap}
 
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:8px 15px;border:none;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600;font-family:inherit;transition:all .2s;white-space:nowrap}
 .bp{background:var(--red);color:#fff}.bp:hover{background:var(--rdk);transform:translateY(-1px);box-shadow:0 4px 12px rgba(230,57,70,.3)}
 .bs{background:#f0f2f5;color:var(--txt);border:1px solid var(--bdr)}.bs:hover{background:#e4e7ec}
 .bd{background:transparent;color:var(--red);padding:5px 8px;font-size:.8rem}.bd:hover{background:var(--rlt)}
-.bfull{width:100%}
-.bsm{padding:5px 10px;font-size:.8rem}
-.bxs{padding:3px 7px;font-size:.75rem;border-radius:5px;background:#f0f2f5;border:1px solid var(--bdr);cursor:pointer}
+.bfull{width:100%}.bsm{padding:5px 10px;font-size:.8rem}
+.bxs{padding:3px 7px;font-size:.75rem;border-radius:5px;background:#f0f2f5;border:1px solid var(--bdr);cursor:pointer;font-family:inherit}
 .bxs:hover{background:var(--red);color:#fff;border-color:var(--red)}
 
 .mode-tgl{display:flex;gap:6px}
@@ -67,7 +63,7 @@ input[type=range]{flex:1;accent-color:var(--red);cursor:pointer}
 .chkrow{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--bdr);margin-bottom:6px;background:#fff;cursor:pointer;transition:border-color .15s}
 .chkrow:hover{border-color:var(--red)}
 .chkrow input[type=checkbox]{accent-color:var(--red);width:15px;height:15px;cursor:pointer;flex-shrink:0}
-.chkrow .cl{flex:1;display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer}
+.chkrow .cl{flex:1;display:flex;align-items:center;justify-content:space-between;gap:8px}
 .pot-tag{background:#e0e7ff;color:#3730a3;padding:2px 8px;border-radius:10px;font-size:.73rem;font-weight:700}
 
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
@@ -95,25 +91,35 @@ tr:hover td{background:#fafbfc}
 .tbadge.slow{background:#fff1f2;color:#be123c}
 .stars{color:var(--ora);font-size:.76rem;letter-spacing:1px}
 
-.cond-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:12px}
+.cond-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
 .cond-card{background:#fff;border:1.5px solid var(--bdr);border-radius:10px;padding:14px;transition:border-color .2s,box-shadow .2s}
 .cond-card:hover{border-color:var(--red);box-shadow:0 2px 12px rgba(230,57,70,.1)}
 .cond-card .nm{font-weight:700;font-size:.92rem;margin-bottom:8px}
 .cond-detail{font-size:.79rem;color:var(--mut);margin-bottom:3px}
 .cond-detail strong{color:var(--txt)}
 
-.site-card{background:#fff;border:1.5px solid var(--bdr);border-radius:var(--r);margin-bottom:14px;overflow:hidden}
-.sch{padding:12px 15px;background:#fafbfc;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.scb{padding:13px 15px}
-.egrid{display:grid;grid-template-columns:1fr 78px 34px;gap:6px;align-items:center;margin-bottom:6px}
-.egh{display:grid;grid-template-columns:1fr 78px 34px;gap:6px;font-size:.7rem;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.4px;padding-bottom:5px;margin-bottom:5px;border-bottom:1px solid var(--bdr)}
+/* Rendements tab */
+.sync-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;margin-bottom:18px;font-size:.84rem;font-weight:500}
+.sync-ok{background:#d1fae5;color:#065f46;border:1.5px solid #6ee7b7}
+.sync-demo{background:#fff3cd;color:#78350f;border:1.5px solid #fcd34d}
+.sync-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.dok{background:#10b981}.ddemo{background:#f59e0b}
 
-.dot{width:11px;height:11px;border-radius:50%;flex-shrink:0}
-.sdot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.rsite-card{background:#fff;border:1.5px solid var(--bdr);border-radius:var(--r);margin-bottom:14px;overflow:hidden}
+.rsite-hd{padding:11px 15px;background:#fafbfc;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:9px}
+.rsite-hd strong{font-size:.92rem}
+.rsite-body{padding:12px 15px}
+.remp-row{display:grid;grid-template-columns:1fr 110px 160px;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid #f3f4f6}
+.remp-row:last-child{border-bottom:none}
+.remp-name{font-weight:600;font-size:.88rem}
+.remp-job{font-size:.76rem;color:var(--mut);margin-top:1px}
+.sp-wrap{display:flex;align-items:center;gap:7px}
+.sp-wrap input[type=range]{flex:1;height:5px}
+.sp-val{font-size:.8rem;font-weight:700;color:var(--red);min-width:28px;text-align:right}
 
 .modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;align-items:center;justify-content:center}
 .modal-ov.open{display:flex}
-.modal{background:#fff;border-radius:14px;padding:24px;width:100%;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,.2);margin:16px}
+.modal{background:#fff;border-radius:14px;padding:24px;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.2);margin:16px}
 .modal h2{font-size:1rem;margin-bottom:16px}
 .mfoot{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
 
@@ -122,17 +128,17 @@ tr:hover td{background:#fafbfc}
 
 .empty{text-align:center;padding:36px 20px;color:var(--mut)}
 .empty .ic{font-size:2.2rem;margin-bottom:8px}
+.dot{width:11px;height:11px;border-radius:50%;flex-shrink:0}
+.sdot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
 
-.tip{background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:9px 12px;font-size:.79rem;color:#78350f;margin-top:8px}
-
-@media print{header,.tabs-nav,.left-col,.btn,.modal-ov{display:none!important}.page{padding:0;max-width:100%}.two-col{display:block}.card,.sr,.site-card{box-shadow:none;border:1px solid #ccc}}
+@media print{header,.tabs-nav,.left-col,.btn,.modal-ov{display:none!important}.page{padding:0;max-width:100%}.two-col{display:block}}
 </style>
 </head>
 <body>
 
 <div class="toast" id="toast"></div>
 
-<!-- Modal conditionnement -->
+<!-- Modal conditionnement (nom + poids seulement) -->
 <div class="modal-ov" id="modal-cond">
   <div class="modal">
     <h2 id="mcond-title">Nouveau conditionnement</h2>
@@ -140,9 +146,6 @@ tr:hover td{background:#fafbfc}
     <div class="fl"><span class="lbl">Nom</span><input type="text" id="cond-name" placeholder="Ex: Barquette 250g"></div>
     <div class="fl"><span class="lbl">Poids unitaire</span>
       <div class="ig"><input type="number" id="cond-wt" value="250" min="1"><span class="sfx">grammes</span></div>
-    </div>
-    <div class="fl"><span class="lbl">Rendement de base (employé moyen vitesse 5/10)</span>
-      <div class="ig"><input type="number" id="cond-rate" value="100" min="1"><span class="sfx">unités/h</span></div>
     </div>
     <div class="mfoot">
       <button class="btn bs" onclick="closeModal('modal-cond')">Annuler</button>
@@ -153,13 +156,13 @@ tr:hover td{background:#fafbfc}
 
 <header>
   <span style="font-size:1.5rem">🍓</span>
-  <div><h1>Dispatch Fraises</h1><small>Multi-sites · Conditionnements · Employés</small></div>
+  <div><h1>Dispatch Fraises</h1><small>Multi-sites · Conditionnements · Rendements</small></div>
 </header>
 
 <nav class="tabs-nav">
   <button class="tab-btn active" onclick="showTab('dispatch',this)">📦 Dispatch</button>
   <button class="tab-btn" onclick="showTab('cond',this)">⚙️ Conditionnements</button>
-  <button class="tab-btn" onclick="showTab('sites',this)">🏭 Sites &amp; Employés</button>
+  <button class="tab-btn" onclick="showTab('rend',this)">👷 Rendements</button>
 </nav>
 
 <!-- TAB DISPATCH -->
@@ -167,7 +170,6 @@ tr:hover td{background:#fafbfc}
   <div class="page">
     <div class="two-col">
       <div class="left-col">
-
         <div class="card">
           <div class="ch">📋 Paramètres commande</div>
           <div class="cb">
@@ -185,6 +187,16 @@ tr:hover td{background:#fafbfc}
               <div id="qty-kg" style="font-size:.77rem;color:var(--mut);margin-top:4px"></div>
             </div>
             <div class="fl">
+              <span class="lbl">Rendement de base <span style="text-transform:none;font-weight:400">(employé vitesse 5/10)</span></span>
+              <div class="ig">
+                <input type="number" id="base-rate" value="80" min="1">
+                <span class="sfx">unités/h</span>
+              </div>
+              <div style="font-size:.76rem;color:var(--mut);margin-top:4px">
+                💡 Dépend des fraises : grosses et belles → plus rapide
+              </div>
+            </div>
+            <div class="fl">
               <span class="lbl">Répartition employés</span>
               <div class="mode-tgl">
                 <button class="mbtn active" onclick="setMode('equitable',this)">⚖️ Équitable</button>
@@ -197,7 +209,9 @@ tr:hover td{background:#fafbfc}
                 <input type="range" id="difficulty" min="1" max="5" value="3" oninput="onDiffChange(this.value)">
                 <span id="dfac" style="font-size:.8rem;color:var(--mut);min-width:42px">×1.00</span>
               </div>
-              <div style="display:flex;justify-content:space-between;font-size:.69rem;color:var(--mut);margin-top:2px"><span>Très facile</span><span>Très difficile</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:.69rem;color:var(--mut);margin-top:2px">
+                <span>Très facile (grosses fraises)</span><span>Très difficile</span>
+              </div>
             </div>
           </div>
         </div>
@@ -206,14 +220,12 @@ tr:hover td{background:#fafbfc}
           <div class="ch">🏭 Sites inclus
             <span id="pot-total" style="margin-left:auto;font-size:.78rem;color:var(--mut)"></span>
           </div>
-          <div class="cb" id="sites-chk">
-            <div class="empty" style="padding:16px"><div class="ic">🏭</div>
-              <p>Aucun site.<br><button class="btn bs bsm" style="margin-top:6px" onclick="showTab('sites',document.querySelectorAll('.tab-btn')[2])">+ Ajouter des sites</button></p>
-            </div>
-          </div>
+          <div class="cb" id="sites-chk"></div>
         </div>
 
-        <button class="btn bp bfull" style="padding:13px;font-size:.93rem;border-radius:10px" onclick="runDispatch()">🍓 Calculer le dispatch</button>
+        <button class="btn bp bfull" style="padding:13px;font-size:.93rem;border-radius:10px" onclick="runDispatch()">
+          🍓 Calculer le dispatch
+        </button>
       </div>
 
       <div id="results">
@@ -228,67 +240,141 @@ tr:hover td{background:#fafbfc}
   <div class="page">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
       <div><h2 style="font-size:1rem;font-weight:700">Conditionnements</h2>
-        <p style="font-size:.8rem;color:var(--mut);margin-top:2px">Types d'emballage — sauvegardés automatiquement</p></div>
+        <p style="font-size:.8rem;color:var(--mut);margin-top:2px">Types d'emballage — nom et poids unitaire</p></div>
       <button class="btn bp" onclick="openAddCond()">+ Nouveau</button>
     </div>
     <div class="cond-grid" id="cond-grid"></div>
   </div>
 </div>
 
-<!-- TAB SITES -->
-<div class="tab-pane" id="tab-sites">
+<!-- TAB RENDEMENTS -->
+<div class="tab-pane" id="tab-rend">
   <div class="page">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
-      <div><h2 style="font-size:1rem;font-weight:700">Sites &amp; Employés</h2>
-        <p style="font-size:.8rem;color:var(--mut);margin-top:2px">Serres de production avec leurs équipes — sauvegardé automatiquement</p></div>
-      <button class="btn bp" onclick="addSite()">+ Nouveau site</button>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <div><h2 style="font-size:1rem;font-weight:700">Rendements des employés</h2>
+        <p style="font-size:.8rem;color:var(--mut);margin-top:2px">Vitesse mise à jour ici → synchronisée avec l'application principale</p></div>
+      <button class="btn bs" onclick="syncWorkforce()">🔄 Resynchroniser</button>
     </div>
-    <div id="sites-list"></div>
+    <div id="sync-banner"></div>
+    <div id="rend-list"></div>
   </div>
 </div>
 
 <script>
-// ── DATA ──────────────────────────────────────────────────────────────────────
-const DIFF={
+/*
+  ══════════════════════════════════════════════════════════
+  CLÉ PARTAGÉE AVEC L'APPLICATION PRINCIPALE
+  localStorage key : "fraises-workforce"
+
+  Format attendu :
+  {
+    "sites": [
+      {
+        "id": 1,
+        "name": "Serre A",
+        "potential_kg": 800,
+        "employees": [
+          { "id": 11, "name": "Alice", "job": "Conditionneuse", "speed": 8 }
+        ]
+      }
+    ]
+  }
+
+  Ce fichier peut LIRE et ÉCRIRE cette clé (mise à jour de "speed").
+  ══════════════════════════════════════════════════════════
+*/
+
+const WF_KEY   = 'fraises-workforce';   // partagé avec l'app principale
+const DISP_KEY = 'fraises-dispatch-v3'; // local à ce fichier
+
+const COLORS = ['#e63946','#457b9d','#2d6a4f','#f4a261','#7b2d8b','#1d7874','#e07a5f','#3d405b'];
+
+const DIFF = {
   1:{label:'Très facile',f:1.40,cls:'d1'},
   2:{label:'Facile',     f:1.15,cls:'d2'},
   3:{label:'Normale',    f:1.00,cls:'d3'},
   4:{label:'Difficile',  f:0.75,cls:'d4'},
   5:{label:'Très dure',  f:0.55,cls:'d5'},
 };
-const COLORS=['#e63946','#457b9d','#2d6a4f','#f4a261','#7b2d8b','#1d7874','#e07a5f','#3d405b'];
 
-let _nid=200;
-const uid=()=>++_nid;
-
-let D={
-  conds:[
-    {id:1,name:'Barquette 250g', wt:250,  rate:120},
-    {id:2,name:'Barquette 500g', wt:500,  rate:80},
-    {id:3,name:'Caisse 5kg',     wt:5000, rate:25},
-    {id:4,name:'Plateau 1kg',    wt:1000, rate:50},
-  ],
+// Données de démo si l'app principale n'a pas encore écrit
+const DEMO_WF = {
   sites:[
-    {id:10,name:'Serre A',pot:800, emps:[{id:11,name:'Alice',sp:8},{id:12,name:'Bruno',sp:5}]},
-    {id:20,name:'Serre B',pot:1200,emps:[{id:21,name:'Carole',sp:7},{id:22,name:'David',sp:4},{id:23,name:'Emma',sp:9}]},
-  ],
+    {id:10,name:'Serre A',potential_kg:800,
+     employees:[{id:11,name:'Alice',job:'Conditionneuse',speed:8},{id:12,name:'Bruno',job:'Conditionnement',speed:5}]},
+    {id:20,name:'Serre B',potential_kg:1200,
+     employees:[{id:21,name:'Carole',job:'Conditionneuse',speed:7},{id:22,name:'David',job:'Conditionnement',speed:4},{id:23,name:'Emma',job:'Conditionneuse',speed:9}]},
+  ]
 };
 
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let workforce = null;   // chargé depuis localStorage (partagé)
+let isDemo    = false;  // true si données de démo
+let settings  = {       // local à ce fichier
+  conds:[
+    {id:1,name:'Barquette 250g',wt:250},
+    {id:2,name:'Barquette 500g',wt:500},
+    {id:3,name:'Caisse 5kg',    wt:5000},
+    {id:4,name:'Plateau 1kg',   wt:1000},
+  ],
+};
+let _nid = 200;
+const uid = () => ++_nid;
+let mode = 'equitable';
+
 // ── PERSISTENCE ───────────────────────────────────────────────────────────────
-function save(){localStorage.setItem('df3',JSON.stringify(D));toast('Sauvegardé ✓')}
-(function load(){try{const r=localStorage.getItem('df3');if(r)D=JSON.parse(r)}catch(e){}})();
+function loadAll(){
+  // Workforce (partagé)
+  try{
+    const r=localStorage.getItem(WF_KEY);
+    if(r){workforce=JSON.parse(r);isDemo=false;}
+    else{workforce=JSON.parse(JSON.stringify(DEMO_WF));isDemo=true;}
+  }catch(e){workforce=JSON.parse(JSON.stringify(DEMO_WF));isDemo=true;}
+  // Settings locaux
+  try{
+    const r=localStorage.getItem(DISP_KEY);
+    if(r){const d=JSON.parse(r);if(d.conds)settings.conds=d.conds;}
+  }catch(e){}
+}
+
+function saveWorkforce(){
+  localStorage.setItem(WF_KEY,JSON.stringify(workforce));
+  toast('Rendements sauvegardés ✓');
+}
+
+function saveSettings(){
+  localStorage.setItem(DISP_KEY,JSON.stringify(settings));
+}
+
+function syncWorkforce(){
+  try{
+    const r=localStorage.getItem(WF_KEY);
+    if(r){
+      const fresh=JSON.parse(r);
+      // Merge: garder les speed mis à jour localement
+      const speedMap={};
+      workforce.sites.forEach(s=>s.employees.forEach(e=>{speedMap[e.id]=e.speed}));
+      fresh.sites.forEach(s=>s.employees.forEach(e=>{
+        if(speedMap[e.id]!==undefined)e.speed=speedMap[e.id];
+      }));
+      workforce=fresh;isDemo=false;
+      toast('Synchronisé avec l\'app principale ✓');
+    }else{
+      toast('Aucune donnée de l\'app principale trouvée');
+    }
+  }catch(e){toast('Erreur de synchronisation');}
+  renderChk();renderRendList();renderSyncBanner();
+}
 
 // ── UI HELPERS ────────────────────────────────────────────────────────────────
-let mode='equitable';
-
 function showTab(n,btn){
   document.querySelectorAll('.tab-pane').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('tab-'+n).classList.add('active');
   btn.classList.add('active');
-  if(n==='dispatch'){renderChk();populateCondSel()}
+  if(n==='dispatch'){renderChk();populateCondSel();}
   if(n==='cond')renderCondGrid();
-  if(n==='sites')renderSitesList();
+  if(n==='rend'){renderSyncBanner();renderRendList();}
 }
 
 function setMode(m,btn){
@@ -306,25 +392,24 @@ function onDiffChange(v){
 
 function onCondChange(){
   const c=getCond();if(!c)return;
-  document.getElementById('qty-sfx').textContent=shortName(c)+'s';
-  document.getElementById('cond-info').textContent=`${c.wt}g/unité · rendement base : ${c.rate} u/h (vitesse 5/10)`;
+  document.getElementById('qty-sfx').textContent=sn(c)+'s';
+  document.getElementById('cond-info').textContent=`${c.wt<1000?c.wt+'g':c.wt/1000+'kg'} par unité`;
   onQtyChange();
 }
 
 function onQtyChange(){
   const c=getCond();const qty=parseFloat(document.getElementById('qty').value)||0;
-  if(!c||!qty){document.getElementById('qty-kg').textContent='';return}
-  const kg=qty*c.wt/1000;
-  document.getElementById('qty-kg').textContent=`≈ ${fmt(kg)} kg au total`;
+  if(!c||!qty){document.getElementById('qty-kg').textContent='';return;}
+  document.getElementById('qty-kg').textContent=`≈ ${fmt(qty*c.wt/1000)} kg au total`;
 }
 
 function getCond(){
   const id=parseInt(document.getElementById('sel-cond').value);
-  return D.conds.find(c=>c.id===id);
+  return settings.conds.find(c=>c.id===id);
 }
 
-function shortName(c){return c.name.split(' ')[0].toLowerCase()}
-function fmt(n){return (Math.round(n)||0).toLocaleString('fr-FR')}
+function sn(c){return c.name.split(' ')[0].toLowerCase()}
+function fmt(n){return(Math.round(n)||0).toLocaleString('fr-FR')}
 function fmtT(h){
   if(!isFinite(h)||h<=0)return'–';
   if(h<1/60)return'<1min';
@@ -334,11 +419,11 @@ function fmtT(h){
 }
 function stars(sp){const n=Math.round(sp/2);return'★'.repeat(n)+'☆'.repeat(5-n)}
 
-let toastTmr;
+let _tt;
 function toast(msg){
   const el=document.getElementById('toast');
   el.textContent=msg;el.classList.add('show');
-  clearTimeout(toastTmr);toastTmr=setTimeout(()=>el.classList.remove('show'),2000);
+  clearTimeout(_tt);_tt=setTimeout(()=>el.classList.remove('show'),2200);
 }
 function openModal(id){document.getElementById(id).classList.add('open')}
 function closeModal(id){document.getElementById(id).classList.remove('open')}
@@ -348,28 +433,30 @@ function populateCondSel(){
   const sel=document.getElementById('sel-cond');
   const prev=sel.value;
   sel.innerHTML='';
-  if(!D.conds.length){sel.innerHTML='<option disabled>Aucun conditionnement</option>';return}
-  D.conds.forEach(c=>{
+  if(!settings.conds.length){sel.innerHTML='<option disabled>Aucun conditionnement</option>';return;}
+  settings.conds.forEach(c=>{
     const o=document.createElement('option');
-    o.value=c.id;o.textContent=`${c.name} (${c.wt<1000?c.wt+'g':c.wt/1000+'kg'})`;
+    o.value=c.id;
+    o.textContent=`${c.name} (${c.wt<1000?c.wt+'g':c.wt/1000+'kg'})`;
     sel.appendChild(o);
   });
-  if(prev&&D.conds.find(c=>c.id==prev))sel.value=prev;
+  if(prev&&settings.conds.find(c=>c.id==prev))sel.value=prev;
   onCondChange();
 }
 
 function renderCondGrid(){
   const g=document.getElementById('cond-grid');
-  if(!D.conds.length){
-    g.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="ic">📦</div><p>Aucun conditionnement.<br>Cliquez sur <strong>+ Nouveau</strong>.</p></div>`;
+  if(!settings.conds.length){
+    g.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="ic">📦</div><p>Aucun conditionnement. Cliquez sur <strong>+ Nouveau</strong>.</p></div>`;
     return;
   }
-  g.innerHTML=D.conds.map(c=>`
+  g.innerHTML=settings.conds.map(c=>`
     <div class="cond-card">
       <div class="nm">📦 ${c.name}</div>
-      <div class="cond-detail">Poids : <strong>${c.wt>=1000?c.wt/1000+' kg':c.wt+' g'}</strong></div>
-      <div class="cond-detail">Rendement base : <strong>${c.rate} u/h</strong></div>
-      <div class="cond-detail" style="color:#aaa;font-size:.74rem">Pour un employé vitesse 5/10</div>
+      <div class="cond-detail">Poids : <strong>${c.wt>=1000?c.wt/1000+' kg':c.wt+' g'}</strong> par unité</div>
+      <div class="cond-detail" style="color:#aaa;font-size:.74rem;margin-top:4px">
+        Le rendement dépend des fraises et de la difficulté — réglé dans les paramètres commande
+      </div>
       <div style="display:flex;gap:6px;margin-top:11px">
         <button class="btn bs bsm" style="flex:1" onclick="editCond(${c.id})">✏️ Modifier</button>
         <button class="btn bd bsm" onclick="deleteCond(${c.id})">🗑</button>
@@ -382,206 +469,204 @@ function openAddCond(){
   document.getElementById('mcond-title').textContent='Nouveau conditionnement';
   document.getElementById('cond-name').value='';
   document.getElementById('cond-wt').value='250';
-  document.getElementById('cond-rate').value='100';
   openModal('modal-cond');
 }
 
 function editCond(id){
-  const c=D.conds.find(x=>x.id===id);
+  const c=settings.conds.find(x=>x.id===id);
   document.getElementById('cond-eid').value=id;
   document.getElementById('mcond-title').textContent='Modifier le conditionnement';
   document.getElementById('cond-name').value=c.name;
   document.getElementById('cond-wt').value=c.wt;
-  document.getElementById('cond-rate').value=c.rate;
   openModal('modal-cond');
 }
 
 function saveCond(){
   const name=document.getElementById('cond-name').value.trim();
   const wt=parseInt(document.getElementById('cond-wt').value);
-  const rate=parseInt(document.getElementById('cond-rate').value);
   if(!name)return alert('Entrez un nom.');
   if(!wt||wt<1)return alert('Poids invalide.');
-  if(!rate||rate<1)return alert('Rendement invalide.');
   const eid=document.getElementById('cond-eid').value;
-  if(eid){const c=D.conds.find(x=>x.id==eid);c.name=name;c.wt=wt;c.rate=rate}
-  else D.conds.push({id:uid(),name,wt,rate});
-  save();closeModal('modal-cond');renderCondGrid();populateCondSel();
+  if(eid){const c=settings.conds.find(x=>x.id==eid);c.name=name;c.wt=wt;}
+  else settings.conds.push({id:uid(),name,wt});
+  saveSettings();closeModal('modal-cond');renderCondGrid();populateCondSel();
+  toast('Conditionnement sauvegardé ✓');
 }
 
 function deleteCond(id){
   if(!confirm('Supprimer ce conditionnement ?'))return;
-  D.conds=D.conds.filter(c=>c.id!==id);
-  save();renderCondGrid();populateCondSel();
+  settings.conds=settings.conds.filter(c=>c.id!==id);
+  saveSettings();renderCondGrid();populateCondSel();
 }
 
-// ── SITES ─────────────────────────────────────────────────────────────────────
-function renderSitesList(){
-  const el=document.getElementById('sites-list');
-  if(!D.sites.length){
-    el.innerHTML=`<div class="empty"><div class="ic">🏭</div><p>Aucun site. Cliquez sur <strong>+ Nouveau site</strong>.</p></div>`;
+// ── RENDEMENTS TAB ────────────────────────────────────────────────────────────
+function renderSyncBanner(){
+  const el=document.getElementById('sync-banner');
+  if(isDemo){
+    el.innerHTML=`<div class="sync-bar sync-demo">
+      <div class="sync-dot ddemo"></div>
+      <div>
+        <strong>Mode démo</strong> — données de démonstration.<br>
+        <span style="font-size:.78rem">Lancez l'application principale pour synchroniser les vrais sites et employés.</span>
+      </div>
+    </div>`;
+  }else{
+    const tot=workforce.sites.reduce((s,x)=>s+(x.employees||[]).length,0);
+    el.innerHTML=`<div class="sync-bar sync-ok">
+      <div class="sync-dot dok"></div>
+      <strong>Synchronisé</strong> — ${workforce.sites.length} site(s) · ${tot} employé(s) chargé(s) depuis l'app principale.
+    </div>`;
+  }
+}
+
+function renderRendList(){
+  const el=document.getElementById('rend-list');
+  if(!workforce||!workforce.sites.length){
+    el.innerHTML=`<div class="empty"><div class="ic">👷</div><p>Aucun employé trouvé.</p></div>`;
     return;
   }
-  el.innerHTML=D.sites.map((s,si)=>{
+  el.innerHTML=workforce.sites.map((site,si)=>{
     const col=COLORS[si%COLORS.length];
-    return `
-    <div class="site-card">
-      <div class="sch">
+    const emps=site.employees||[];
+    return`<div class="rsite-card">
+      <div class="rsite-hd">
         <div class="sdot" style="background:${col}"></div>
-        <input type="text" value="${s.name}" style="font-weight:700;font-size:.93rem;border:none;background:transparent;padding:0;flex:1;color:var(--txt)"
-          onchange="updateSiteName(${s.id},this.value)">
-        <div style="display:flex;align-items:center;gap:6px">
-          <span class="lbl" style="margin:0;white-space:nowrap">Potentiel</span>
-          <div class="ig" style="width:140px">
-            <input type="number" value="${s.pot}" min="1" style="text-align:right"
-              onchange="updateSitePot(${s.id},this.value)">
-            <span class="sfx">kg</span>
-          </div>
+        <strong>${site.name}</strong>
+        <span style="font-size:.78rem;color:var(--mut);margin-left:4px">${site.potential_kg} kg · ${emps.length} emp.</span>
+      </div>
+      <div class="rsite-body">
+        ${emps.length===0?`<div style="font-size:.82rem;color:var(--mut);padding:8px 0">Aucun employé dans ce site.</div>`:
+        `<div style="display:grid;grid-template-columns:1fr 110px 160px;gap:10px;padding-bottom:6px;margin-bottom:4px;border-bottom:1px solid var(--bdr);font-size:.7rem;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.4px">
+          <span>Employé</span><span>Métier</span><span>Vitesse</span>
         </div>
-        <button class="btn bd bsm" onclick="deleteSite(${s.id})">🗑 Suppr.</button>
+        ${emps.map(e=>`
+        <div class="remp-row">
+          <div><div class="remp-name">${e.name}</div></div>
+          <div style="font-size:.8rem;color:var(--mut)">${e.job||'–'}</div>
+          <div class="sp-wrap">
+            <input type="range" min="1" max="10" value="${e.speed||5}"
+              oninput="updSpeed(${site.id},${e.id},this.value,this.nextElementSibling)">
+            <span class="sp-val">${e.speed||5}/10</span>
+          </div>
+        </div>`).join('')}`}
       </div>
-      <div class="scb">
-        <div class="egh"><span>Employé</span><span style="text-align:center">Vitesse 1–10</span><span></span></div>
-        <div id="el-${s.id}">${s.emps.map(e=>empRow(s.id,e)).join('')}</div>
-        <button class="btn bs bsm" style="margin-top:6px" onclick="addEmp(${s.id})">+ Ajouter un employé</button>
-      </div>
-    </div>`}).join('');
+    </div>`;
+  }).join('');
+
+  // Bouton sauvegarder
+  el.insertAdjacentHTML('beforeend',`
+    <div style="display:flex;justify-content:flex-end;margin-top:4px">
+      <button class="btn bp" onclick="saveWorkforce()">💾 Sauvegarder les rendements</button>
+    </div>`);
 }
 
-function empRow(sid,e){
-  return `<div class="egrid" id="er-${e.id}">
-    <input type="text" value="${e.name}" placeholder="Nom" onchange="updEmpName(${sid},${e.id},this.value)">
-    <input type="number" value="${e.sp}" min="1" max="10" style="text-align:center"
-      onchange="updEmpSp(${sid},${e.id},this.value)">
-    <button class="bxs" onclick="removeEmp(${sid},${e.id})">✕</button>
-  </div>`;
+function updSpeed(siteId,empId,val,display){
+  const s=workforce.sites.find(x=>x.id===siteId);
+  const e=s&&(s.employees||[]).find(x=>x.id===empId);
+  if(e){e.speed=parseInt(val);}
+  if(display)display.textContent=val+'/10';
 }
-
-function addSite(){
-  D.sites.push({id:uid(),name:'Serre '+String.fromCharCode(65+D.sites.length),pot:500,emps:[]});
-  save();renderSitesList();renderChk();
-}
-function deleteSite(id){
-  if(!confirm('Supprimer ce site et ses employés ?'))return;
-  D.sites=D.sites.filter(s=>s.id!==id);
-  save();renderSitesList();renderChk();
-}
-function updateSiteName(id,v){const s=D.sites.find(x=>x.id===id);if(s){s.name=v;save();renderChk()}}
-function updateSitePot(id,v){const s=D.sites.find(x=>x.id===id);if(s){s.pot=parseFloat(v)||0;save();renderChk()}}
-
-function addEmp(sid){
-  const s=D.sites.find(x=>x.id===sid);if(!s)return;
-  const e={id:uid(),name:'Employé '+(s.emps.length+1),sp:5};
-  s.emps.push(e);save();
-  document.getElementById('el-'+sid).insertAdjacentHTML('beforeend',empRow(sid,e));
-}
-function removeEmp(sid,eid){
-  const s=D.sites.find(x=>x.id===sid);if(!s)return;
-  if(s.emps.length<=1)return alert('Un site doit avoir au moins un employé.');
-  s.emps=s.emps.filter(e=>e.id!==eid);save();
-  document.getElementById('er-'+eid)?.remove();
-}
-function updEmpName(sid,eid,v){const s=D.sites.find(x=>x.id===sid);const e=s?.emps.find(x=>x.id===eid);if(e){e.name=v;save()}}
-function updEmpSp(sid,eid,v){const s=D.sites.find(x=>x.id===sid);const e=s?.emps.find(x=>x.id===eid);if(e){e.sp=Math.min(10,Math.max(1,parseInt(v)||1));save()}}
 
 // ── DISPATCH CHECKLIST ────────────────────────────────────────────────────────
 function renderChk(){
   const el=document.getElementById('sites-chk');
-  if(!D.sites.length){
+  if(!workforce||!workforce.sites.length){
     el.innerHTML=`<div class="empty" style="padding:14px"><div class="ic">🏭</div>
-      <p>Aucun site.<br><button class="btn bs bsm" style="margin-top:6px" onclick="showTab('sites',document.querySelectorAll('.tab-btn')[2])">+ Ajouter des sites</button></p></div>`;
+      <p>Aucun site trouvé.<br>
+      <button class="btn bs bsm" style="margin-top:6px" onclick="showTab('rend',document.querySelectorAll('.tab-btn')[2])">
+        Voir les rendements
+      </button></p></div>`;
     document.getElementById('pot-total').textContent='';return;
   }
-  const totPot=D.sites.reduce((s,x)=>s+x.pot,0);
-  el.innerHTML=D.sites.map((s,si)=>{
+  const totPot=workforce.sites.reduce((s,x)=>s+x.potential_kg,0);
+  el.innerHTML=workforce.sites.map((s,si)=>{
     const col=COLORS[si%COLORS.length];
-    const pct=totPot>0?(s.pot/totPot*100).toFixed(1):0;
-    return `<div class="chkrow" onclick="toggleChk(${s.id})">
-      <input type="checkbox" id="chk-${s.id}" checked onclick="event.stopPropagation();updPotDisplay()">
+    const pct=totPot>0?(s.potential_kg/totPot*100).toFixed(1):0;
+    return`<div class="chkrow" onclick="toggleChk(${s.id},event)">
+      <input type="checkbox" id="chk-${s.id}" checked onclick="event.stopPropagation();updPot()">
       <label class="cl" for="chk-${s.id}" onclick="event.stopPropagation()">
         <span style="display:flex;align-items:center;gap:7px">
           <span class="dot" style="background:${col}"></span>
           <strong>${s.name}</strong>
-          <span style="font-size:.76rem;color:var(--mut)">${s.emps.length} emp.</span>
+          <span style="font-size:.76rem;color:var(--mut)">${(s.employees||[]).length} emp.</span>
         </span>
         <span style="display:flex;align-items:center;gap:5px">
           <span style="font-size:.76rem;color:var(--mut)">${pct}%</span>
-          <span class="pot-tag">${s.pot} kg</span>
+          <span class="pot-tag">${s.potential_kg} kg</span>
         </span>
       </label>
-    </div>`}).join('');
-  updPotDisplay();
+    </div>`;
+  }).join('');
+  updPot();
 }
 
-function toggleChk(id){
+function toggleChk(id,e){
+  e&&e.stopPropagation();
   const cb=document.getElementById('chk-'+id);
   if(cb)cb.checked=!cb.checked;
-  updPotDisplay();
+  updPot();
 }
 
-function updPotDisplay(){
-  const active=D.sites.filter(s=>document.getElementById('chk-'+s.id)?.checked);
-  const tot=active.reduce((s,x)=>s+x.pot,0);
-  document.getElementById('pot-total').textContent=`Potentiel : ${fmt(tot)} kg`;
+function updPot(){
+  const act=workforce.sites.filter(s=>document.getElementById('chk-'+s.id)?.checked);
+  document.getElementById('pot-total').textContent='Potentiel : '+fmt(act.reduce((s,x)=>s+x.potential_kg,0))+' kg';
 }
 
 // ── DISPATCH ──────────────────────────────────────────────────────────────────
 function runDispatch(){
   const c=getCond();
   const qty=parseFloat(document.getElementById('qty').value)||0;
+  const baseRate=parseFloat(document.getElementById('base-rate').value)||80;
   const dlv=parseInt(document.getElementById('difficulty').value);
   const df=DIFF[dlv].f;
 
   if(!c)return alert('Aucun conditionnement sélectionné.');
   if(qty<=0)return alert('Quantité invalide.');
 
-  const selected=D.sites.filter(s=>document.getElementById('chk-'+s.id)?.checked);
-  if(!selected.length)return alert('Sélectionnez au moins un site.');
-  const noEmp=selected.find(s=>!s.emps.length);
-  if(noEmp)return alert(`Le site "${noEmp.name}" n'a aucun employé.`);
+  const sel=workforce.sites.filter(s=>document.getElementById('chk-'+s.id)?.checked);
+  if(!sel.length)return alert('Sélectionnez au moins un site.');
+  const noE=sel.find(s=>!(s.employees||[]).length);
+  if(noE)return alert(`Le site "${noE.name}" n'a aucun employé.`);
 
-  const totPot=selected.reduce((s,x)=>s+x.pot,0);
+  const totPot=sel.reduce((s,x)=>s+x.potential_kg,0);
   const totKg=qty*c.wt/1000;
+  const csn=sn(c);
 
-  const srs=selected.map(site=>{
-    const si=D.sites.indexOf(site);
+  const srs=sel.map(site=>{
+    const si=workforce.sites.indexOf(site);
     const col=COLORS[si%COLORS.length];
-    const ratio=site.pot/totPot;
+    const ratio=site.potential_kg/totPot;
     const sKg=totKg*ratio;
     const sUnits=sKg/(c.wt/1000);
-
-    const emps=site.emps.map(e=>({...e,effRate:c.rate*(e.sp/5)*df}));
+    const emps=(site.employees||[]).map(e=>({...e,effRate:baseRate*(( e.speed||5)/5)*df}));
     let res;
     if(mode==='equitable'){
       const sh=sUnits/emps.length;
       res=emps.map(e=>({...e,alloc:sh,time:sh/e.effRate}));
-    } else {
-      const totSp=emps.reduce((s,e)=>s+e.sp,0);
-      res=emps.map(e=>{const a=sUnits*(e.sp/totSp);return{...e,alloc:a,time:a/e.effRate}});
+    }else{
+      const totSp=emps.reduce((s,e)=>s+(e.speed||5),0);
+      res=emps.map(e=>{const a=sUnits*((e.speed||5)/totSp);return{...e,alloc:a,time:a/e.effRate}});
     }
     const maxT=Math.max(...res.map(e=>e.time));
     const totRate=emps.reduce((s,e)=>s+e.effRate,0);
     return{site,col,sKg,sUnits,ratio,emps:res,maxT,totRate};
   });
 
-  const gMaxT=Math.max(...srs.map(r=>r.maxT));
   const gTotRate=srs.reduce((s,r)=>s+r.totRate,0);
   const totEmp=srs.reduce((s,r)=>s+r.emps.length,0);
   const estDur=totKg/(gTotRate*c.wt/1000);
-  const sn=shortName(c);
 
   document.getElementById('results').innerHTML=`
     <div class="stats-row">
-      <div class="stbox"><div class="v">${fmt(qty)}</div><div class="l">${sn}s</div></div>
+      <div class="stbox"><div class="v">${fmt(qty)}</div><div class="l">${csn}s</div></div>
       <div class="stbox"><div class="v">${fmt(totKg)} kg</div><div class="l">Poids total</div></div>
-      <div class="stbox"><div class="v">${selected.length}</div><div class="l">Sites actifs</div></div>
+      <div class="stbox"><div class="v">${sel.length}</div><div class="l">Sites actifs</div></div>
       <div class="stbox"><div class="v">${fmtT(estDur)}</div><div class="l">Durée estimée</div></div>
     </div>
     <div style="font-size:.8rem;color:var(--mut);margin-bottom:14px">
-      <strong>${c.name}</strong> ·
-      ${mode==='equitable'?'⚖️ Équitable':'⚡ Par rendement'} ·
+      <strong>${c.name}</strong> · ${mode==='equitable'?'⚖️ Équitable':'⚡ Par rendement'} ·
       Difficulté : <strong>${DIFF[dlv].label} (×${df})</strong> ·
-      <strong>${totEmp} employés</strong>
+      Base : <strong>${baseRate} u/h</strong> · <strong>${totEmp} employés</strong>
     </div>
     ${srs.map(r=>`
     <div class="sr">
@@ -589,61 +674,63 @@ function runDispatch(){
         <div class="sdot" style="background:${r.col}"></div>
         <h3>${r.site.name}</h3>
         <div class="stags">
-          <span class="tag tb">${fmt(r.sUnits)} ${sn}s</span>
+          <span class="tag tb">${fmt(r.sUnits)} ${csn}s</span>
           <span class="tag tg">${r.sKg.toLocaleString('fr-FR',{maximumFractionDigits:1})} kg</span>
-          <span class="tag to">${(r.ratio*100).toFixed(1)}% commande</span>
+          <span class="tag to">${(r.ratio*100).toFixed(1)}%</span>
         </div>
       </div>
       <table>
-        <thead><tr><th>Employé</th><th>Vitesse</th><th>Rend. eff.</th><th>Quantité</th><th>Part</th><th>Durée</th></tr></thead>
+        <thead><tr><th>Employé</th><th>Métier</th><th>Vitesse</th><th>Rend. eff.</th><th>Quantité</th><th>Part</th><th>Durée</th></tr></thead>
         <tbody>${r.emps.map(e=>{
           const pct=r.sUnits>0?e.alloc/r.sUnits*100:0;
           const isMax=Math.abs(e.time-r.maxT)<.001;
           return`<tr>
             <td><strong>${e.name}</strong></td>
-            <td><span class="stars">${stars(e.sp)}</span> <span style="font-size:.76rem;color:var(--mut)">${e.sp}/10</span></td>
-            <td style="font-weight:600">${Math.round(e.effRate)} <span style="font-size:.76rem;font-weight:400;color:var(--mut)">u/h</span></td>
-            <td><strong>${fmt(e.alloc)}</strong> <span style="font-size:.76rem;color:var(--mut)">${sn}s</span></td>
+            <td style="font-size:.8rem;color:var(--mut)">${e.job||'–'}</td>
+            <td><span class="stars">${stars(e.speed||5)}</span> <span style="font-size:.74rem;color:var(--mut)">${e.speed||5}/10</span></td>
+            <td style="font-weight:600">${Math.round(e.effRate)} <span style="font-size:.74rem;font-weight:400;color:var(--mut)">u/h</span></td>
+            <td><strong>${fmt(e.alloc)}</strong> <span style="font-size:.74rem;color:var(--mut)">${csn}s</span></td>
             <td><div style="display:flex;align-items:center;gap:6px">
               <div class="pbar"><div class="pfill" style="width:${pct.toFixed(1)}%;background:${r.col}"></div></div>
-              <span style="font-size:.76rem;font-weight:600;color:var(--mut);min-width:34px">${pct.toFixed(1)}%</span>
+              <span style="font-size:.74rem;font-weight:600;color:var(--mut);min-width:34px">${pct.toFixed(1)}%</span>
             </div></td>
             <td><span class="tbadge${isMax&&mode==='equitable'?' slow':''}">${fmtT(e.time)}</span></td>
-          </tr>`}).join('')}</tbody>
+          </tr>`;}).join('')}</tbody>
         <tfoot><tr style="background:#fafbfc;font-weight:700">
-          <td colspan="2" style="color:var(--mut)">TOTAL SITE</td>
-          <td>${Math.round(r.totRate)} <span style="font-weight:400;font-size:.76rem;color:var(--mut)">u/h</span></td>
-          <td>${fmt(r.sUnits)} <span style="font-weight:400;font-size:.76rem;color:var(--mut)">${sn}s</span></td>
+          <td colspan="3" style="color:var(--mut)">TOTAL SITE</td>
+          <td>${Math.round(r.totRate)} <span style="font-weight:400;font-size:.74rem;color:var(--mut)">u/h</span></td>
+          <td>${fmt(r.sUnits)} <span style="font-weight:400;font-size:.74rem;color:var(--mut)">${csn}s</span></td>
           <td>100%</td>
           <td style="color:var(--grn)">⏱ ${fmtT(r.maxT)}</td>
         </tr></tfoot>
       </table>
     </div>`).join('')}
     <div style="background:#f0fff4;border:1.5px solid #b7e4c7;border-radius:10px;padding:12px 15px;font-size:.82rem;color:#1b4332;margin-top:4px">
-      💡 <strong>Bilan :</strong> ${selected.length} site(s) · ${totEmp} employés ·
+      💡 <strong>Bilan :</strong> ${sel.length} site(s) · ${totEmp} employés ·
       Capacité collective : <strong>${fmt(gTotRate)} u/h</strong> ·
-      ${mode==='equitable'?'Mode équitable : les employés lents finissent en dernier par site.':'Mode rendement : les rapides ont plus de travail mais finissent en même temps.'}
+      ${mode==='equitable'?'Mode équitable : les employés lents finissent en dernier par site.':'Mode rendement : les rapides ont plus de travail mais finissent simultanément.'}
     </div>
     <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px">
       <button class="btn bs" onclick="window.print()">🖨️ Imprimer</button>
       <button class="btn bs" onclick="exportCSV()">📋 CSV</button>
     </div>`;
 
-  window._lr={srs,c,qty,totKg,sn};
+  window._lr={srs,c,csn};
 }
 
 function exportCSV(){
   if(!window._lr)return;
-  const{srs,c,sn}=window._lr;
-  let csv='Site;Potentiel kg;Employé;Vitesse;Rend. eff. u/h;Quantité;Part %;Durée\n';
+  const{srs,csn}=window._lr;
+  let csv='Site;Potentiel kg;Employé;Métier;Vitesse;Rend. eff. u/h;Quantité;Part %;Durée\n';
   srs.forEach(r=>r.emps.forEach(e=>{
     const pct=r.sUnits>0?(e.alloc/r.sUnits*100).toFixed(1):0;
-    csv+=`${r.site.name};${r.site.pot};${e.name};${e.sp};${Math.round(e.effRate)};${Math.round(e.alloc)};${pct}%;${fmtT(e.time)}\n`;
+    csv+=`${r.site.name};${r.site.potential_kg};${e.name};${e.job||''};${e.speed||5};${Math.round(e.effRate)};${Math.round(e.alloc)};${pct}%;${fmtT(e.time)}\n`;
   }));
   navigator.clipboard.writeText(csv).then(()=>toast('CSV copié ✓'));
 }
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
+loadAll();
 populateCondSel();
 renderChk();
 </script>
