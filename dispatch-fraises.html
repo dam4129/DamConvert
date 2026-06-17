@@ -61,10 +61,10 @@ input[type=range]{flex:1;accent-color:var(--red);cursor:pointer}
 .d1,.d2{background:#d8f3dc;color:#1b4332}.d3{background:#fff3cd;color:#7a5c00}.d4,.d5{background:#ffe4e4;color:#9b1c1c}
 
 /* Order lines */
-.order-line{display:grid;grid-template-columns:1fr 80px auto auto auto;gap:6px;align-items:center;margin-bottom:7px}
+.order-line{display:grid;grid-template-columns:1fr 80px 80px auto auto;gap:6px;align-items:center;margin-bottom:4px}
 .order-line select{font-size:.82rem}
 .order-line input{text-align:right}
-.line-kg{font-size:.75rem;color:var(--mut);white-space:nowrap;min-width:55px;text-align:right}
+.line-equiv{font-size:.74rem;color:var(--mut);background:#f4f5f7;border-radius:6px;padding:4px 8px;margin-bottom:8px;white-space:nowrap}
 .lines-footer{display:flex;align-items:center;justify-content:space-between;padding-top:8px;margin-top:4px;border-top:1px solid var(--bdr)}
 .lines-total{font-size:.85rem;font-weight:700;color:var(--txt)}
 
@@ -313,7 +313,7 @@ let settings  = {
     {id:4,name:'Plateau 1kg',   wt:1000},
   ],
 };
-let orderLines = []; // [{id, condId, qty}]
+let orderLines = []; // [{id, condId, qty, unit:'units'|'kg'}]
 let _nid = 200;
 const uid = () => ++_nid;
 let mode = 'equitable';
@@ -330,7 +330,7 @@ function loadAll(){
     if(r){const d=JSON.parse(r);if(d.conds)settings.conds=d.conds;if(d.lines)orderLines=d.lines;}
   }catch(e){}
   if(!orderLines.length&&settings.conds.length)
-    orderLines=[{id:uid(),condId:settings.conds[0].id,qty:2000}];
+    orderLines=[{id:uid(),condId:settings.conds[0].id,qty:2000,unit:'units'}];
 }
 
 function saveWorkforce(){
@@ -411,26 +411,42 @@ function renderOrderLines(){
   }
 
   const baseRateKgh=parseFloat(document.getElementById('base-rate')?.value)||20;
-  const totKg=orderLines.reduce((s,l)=>{
-    const c=settings.conds.find(x=>x.id===l.condId);
-    return s+(c?l.qty*c.wt/1000:0);
-  },0);
 
+  // Calcule kg et nb unités pour une ligne selon son unité choisie
+  function lineCalc(l){
+    const c=settings.conds.find(x=>x.id===l.condId);
+    if(!c)return{c:null,kg:0,units:0};
+    const wtKg=c.wt/1000;
+    if(l.unit==='kg'){
+      return{c,kg:l.qty,units:l.qty/wtKg};
+    }else{
+      return{c,kg:l.qty*wtKg,units:l.qty};
+    }
+  }
+
+  const totKg=orderLines.reduce((s,l)=>s+lineCalc(l).kg,0);
   const condOpts=settings.conds.map(c=>`<option value="${c.id}">${c.name} (${c.wt<1000?c.wt+'g':c.wt/1000+'kg'})</option>`).join('');
 
-  el.innerHTML=orderLines.map((l,i)=>{
-    const c=settings.conds.find(x=>x.id===l.condId);
-    const kg=c?l.qty*c.wt/1000:0;
+  el.innerHTML=orderLines.map((l)=>{
+    const{c,kg,units}=lineCalc(l);
     const uph=c&&baseRateKgh>0?Math.round(baseRateKgh/(c.wt/1000)):0;
+    const isKg=l.unit==='kg';
+    const equiv=c?(isKg
+      ? `= ${fmt(Math.round(units))} ${sn(c)}s`
+      : `= ${fmtKg(kg)}`
+    ):'';
     return`<div class="order-line" id="ol-${l.id}">
       <select onchange="updLine(${l.id},'condId',+this.value)">${condOpts.replace(`value="${l.condId}"`,`value="${l.condId}" selected`)}</select>
-      <input type="number" value="${l.qty}" min="1" onchange="updLine(${l.id},'qty',+this.value)">
-      <span class="sfx" style="padding:8px 7px">${c?sn(c)+'s':'u'}</span>
-      <span class="line-kg">≈ ${fmtKg(kg)}</span>
+      <input type="number" value="${l.qty}" min="0.001" step="${isKg?0.1:1}" onchange="updLine(${l.id},'qty',+this.value)">
+      <select style="font-size:.8rem" onchange="updLine(${l.id},'unit',this.value)">
+        <option value="units" ${!isKg?'selected':''}>unités</option>
+        <option value="kg"    ${isKg?'selected':''}>kg</option>
+      </select>
       <button class="bxs" onclick="removeLine(${l.id})" ${orderLines.length<=1?'disabled style="opacity:.3"':''}>✕</button>
     </div>
-    <div style="font-size:.73rem;color:var(--mut);margin:-4px 0 7px 0;padding-left:2px">
-      Rend. base : ~${uph} u/h · Total ligne : ${fmtKg(kg)}
+    <div class="line-equiv">
+      ${equiv ? `→ <strong>${equiv}</strong>` : '–'}
+      ${c?` · rend. base ~${uph} ${sn(c)}s/h`:''}
     </div>`;
   }).join('')+`
   <div class="lines-footer">
@@ -441,7 +457,7 @@ function renderOrderLines(){
 
 function addLine(){
   if(!settings.conds.length)return alert('Ajoutez d\'abord un conditionnement.');
-  orderLines.push({id:uid(),condId:settings.conds[0].id,qty:500});
+  orderLines.push({id:uid(),condId:settings.conds[0].id,qty:500,unit:'units'});
   saveSettings();renderOrderLines();
 }
 
@@ -627,10 +643,14 @@ function runDispatch(){
   const dlv=parseInt(document.getElementById('difficulty').value);
   const df=DIFF[dlv].f;
 
-  // Validate lines
+  // Validate lines — supporte unités et kg
   const lines=orderLines.map(l=>{
     const c=settings.conds.find(x=>x.id===l.condId);
-    return c&&l.qty>0?{...l,c,kg:l.qty*c.wt/1000}:null;
+    if(!c||!l.qty||l.qty<=0)return null;
+    const wtKg=c.wt/1000;
+    const kg=l.unit==='kg'?l.qty:l.qty*wtKg;
+    const units=l.unit==='kg'?l.qty/wtKg:l.qty;
+    return{...l,c,kg,units};
   }).filter(Boolean);
 
   if(!lines.length)return alert('Ajoutez au moins une ligne de commande valide.');
