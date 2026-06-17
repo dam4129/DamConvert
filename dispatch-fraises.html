@@ -1,593 +1,651 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dispatch Fraises</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🍓 Dispatch Fraises</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#e63946;--rdk:#c1121f;--rlt:#fff0f0;
+  --grn:#2d6a4f;--glt:#d8f3dc;
+  --ora:#f4a261;
+  --bg:#f0f2f5;--card:#fff;--bdr:#e0e3e8;
+  --txt:#1a1d23;--mut:#6b7280;
+  --sh:0 1px 4px rgba(0,0,0,.09);--r:12px;
+}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;font-size:14px}
 
-    :root {
-      --red: #e63946;
-      --red-light: #fff0f0;
-      --green: #2d6a4f;
-      --green-light: #d8f3dc;
-      --bg: #f8f9fa;
-      --card: #ffffff;
-      --border: #dee2e6;
-      --text: #212529;
-      --muted: #6c757d;
-      --shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
+header{background:linear-gradient(135deg,#c1121f,var(--red));color:#fff;padding:0 24px;height:54px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 12px rgba(193,18,31,.35);position:sticky;top:0;z-index:100}
+header h1{font-size:1.1rem;font-weight:700}
+header small{font-size:.75rem;opacity:.8}
 
-    body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
+.tabs-nav{background:#fff;border-bottom:1px solid var(--bdr);padding:0 20px;display:flex;position:sticky;top:54px;z-index:99;box-shadow:var(--sh)}
+.tab-btn{padding:11px 18px;border:none;background:none;cursor:pointer;font-size:.86rem;font-weight:500;color:var(--mut);border-bottom:2.5px solid transparent;margin-bottom:-1px;transition:all .2s;display:flex;align-items:center;gap:6px;font-family:inherit}
+.tab-btn:hover{color:var(--red)}
+.tab-btn.active{color:var(--red);border-bottom-color:var(--red);font-weight:700}
 
-    header {
-      background: linear-gradient(135deg, var(--red), #c1121f);
-      color: white;
-      padding: 18px 24px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      box-shadow: 0 2px 10px rgba(230,57,70,0.3);
-    }
-    header .emoji { font-size: 2rem; }
-    header h1 { font-size: 1.4rem; font-weight: 700; letter-spacing: 0.3px; }
-    header p { font-size: 0.82rem; opacity: 0.85; margin-top: 2px; }
+.tab-pane{display:none}.tab-pane.active{display:block}
+.page{max-width:1200px;margin:0 auto;padding:20px 16px}
+.two-col{display:grid;grid-template-columns:360px 1fr;gap:18px}
+@media(max-width:860px){.two-col{grid-template-columns:1fr}}
 
-    .main { max-width: 1100px; margin: 0 auto; padding: 24px 16px; display: grid; grid-template-columns: 340px 1fr; gap: 20px; }
+.card{background:var(--card);border-radius:var(--r);border:1px solid var(--bdr);box-shadow:var(--sh);margin-bottom:16px;overflow:hidden}
+.ch{padding:11px 16px;border-bottom:1px solid var(--bdr);font-weight:600;font-size:.86rem;background:#fafbfc;display:flex;align-items:center;gap:8px}
+.ch .ml{margin-left:auto;display:flex;gap:6px}
+.cb{padding:15px 16px}
 
-    @media (max-width: 800px) {
-      .main { grid-template-columns: 1fr; }
-    }
+.fl{margin-bottom:13px}.fl:last-child{margin-bottom:0}
+lbl,.lbl{display:block;font-size:.72rem;font-weight:700;color:var(--mut);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
 
-    .card {
-      background: var(--card);
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-    .card-header {
-      padding: 14px 18px;
-      border-bottom: 1px solid var(--border);
-      font-weight: 600;
-      font-size: 0.92rem;
-      background: #fafafa;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .card-body { padding: 16px 18px; }
+input[type=text],input[type=number],select{width:100%;padding:8px 10px;border:1.5px solid var(--bdr);border-radius:8px;font-size:.88rem;font-family:inherit;background:#fff;color:var(--txt);transition:border-color .15s}
+input:focus,select:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(230,57,70,.08)}
+input[type=number]{-moz-appearance:textfield}
 
-    label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--muted); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.4px; }
+.ig{display:flex;gap:6px}
+.ig input,.ig select{flex:1}
+.sfx{display:flex;align-items:center;padding:8px 10px;background:#f4f5f7;border:1.5px solid var(--bdr);border-radius:8px;font-size:.8rem;color:var(--mut);white-space:nowrap}
 
-    input[type=text], input[type=number], select {
-      width: 100%;
-      padding: 9px 12px;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      font-size: 0.93rem;
-      transition: border-color .2s;
-      background: white;
-    }
-    input:focus, select:focus { outline: none; border-color: var(--red); }
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:8px 15px;border:none;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600;font-family:inherit;transition:all .2s;white-space:nowrap}
+.bp{background:var(--red);color:#fff}.bp:hover{background:var(--rdk);transform:translateY(-1px);box-shadow:0 4px 12px rgba(230,57,70,.3)}
+.bs{background:#f0f2f5;color:var(--txt);border:1px solid var(--bdr)}.bs:hover{background:#e4e7ec}
+.bd{background:transparent;color:var(--red);padding:5px 8px;font-size:.8rem}.bd:hover{background:var(--rlt)}
+.bfull{width:100%}
+.bsm{padding:5px 10px;font-size:.8rem}
+.bxs{padding:3px 7px;font-size:.75rem;border-radius:5px;background:#f0f2f5;border:1px solid var(--bdr);cursor:pointer}
+.bxs:hover{background:var(--red);color:#fff;border-color:var(--red)}
 
-    .form-row { margin-bottom: 14px; }
+.mode-tgl{display:flex;gap:6px}
+.mbtn{flex:1;padding:8px 6px;border:1.5px solid var(--bdr);border-radius:8px;background:#fff;cursor:pointer;font-size:.8rem;font-weight:500;text-align:center;transition:all .2s;font-family:inherit}
+.mbtn.active{background:var(--red);color:#fff;border-color:var(--red)}
+.mbtn:hover:not(.active){border-color:var(--red);color:var(--red)}
 
-    .slider-wrap { display: flex; align-items: center; gap: 10px; }
-    input[type=range] {
-      flex: 1;
-      accent-color: var(--red);
-      height: 6px;
-      cursor: pointer;
-    }
-    .slider-labels { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--muted); margin-top: 4px; }
+input[type=range]{flex:1;accent-color:var(--red);cursor:pointer}
+.dbadge{display:inline-block;padding:2px 9px;border-radius:12px;font-size:.76rem;font-weight:700}
+.d1,.d2{background:#d8f3dc;color:#1b4332}.d3{background:#fff3cd;color:#7a5c00}.d4,.d5{background:#ffe4e4;color:#9b1c1c}
 
-    .badge {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-    .badge-easy   { background: #d8f3dc; color: #2d6a4f; }
-    .badge-medium { background: #fff3cd; color: #856404; }
-    .badge-hard   { background: #ffe0e0; color: #c1121f; }
+.chkrow{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--bdr);margin-bottom:6px;background:#fff;cursor:pointer;transition:border-color .15s}
+.chkrow:hover{border-color:var(--red)}
+.chkrow input[type=checkbox]{accent-color:var(--red);width:15px;height:15px;cursor:pointer;flex-shrink:0}
+.chkrow .cl{flex:1;display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer}
+.pot-tag{background:#e0e7ff;color:#3730a3;padding:2px 8px;border-radius:10px;font-size:.73rem;font-weight:700}
 
-    .mode-toggle { display: flex; gap: 8px; }
-    .mode-btn {
-      flex: 1;
-      padding: 9px 6px;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      background: white;
-      cursor: pointer;
-      font-size: 0.84rem;
-      font-weight: 500;
-      text-align: center;
-      transition: all .2s;
-    }
-    .mode-btn.active { background: var(--red); color: white; border-color: var(--red); }
-    .mode-btn:hover:not(.active) { border-color: var(--red); color: var(--red); }
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+@media(max-width:580px){.stats-row{grid-template-columns:repeat(2,1fr)}}
+.stbox{background:#fafbfc;border:1px solid var(--bdr);border-radius:10px;padding:11px;text-align:center}
+.stbox .v{font-size:1.35rem;font-weight:800;color:var(--red)}
+.stbox .l{font-size:.68rem;color:var(--mut);margin-top:2px;text-transform:uppercase;letter-spacing:.4px}
 
-    .employee-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
-    .employee-row {
-      display: grid;
-      grid-template-columns: 1fr 90px 34px;
-      gap: 8px;
-      align-items: center;
-    }
-    .employee-row input { margin: 0; }
-    .speed-display {
-      text-align: center;
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-top: 3px;
-    }
+.sr{background:#fff;border:1.5px solid var(--bdr);border-radius:var(--r);margin-bottom:14px;overflow:hidden}
+.srh{padding:11px 15px;background:#fafbfc;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.srh h3{font-size:.92rem;font-weight:700}
+.stags{margin-left:auto;display:flex;gap:5px;flex-wrap:wrap}
+.tag{display:inline-block;padding:3px 9px;border-radius:10px;font-size:.73rem;font-weight:600}
+.tb{background:#e0e7ff;color:#3730a3}.tg{background:#d1fae5;color:#065f46}.to{background:#ffedd5;color:#9a3412}
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 10px 18px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      font-weight: 600;
-      transition: all .2s;
-    }
-    .btn-primary { background: var(--red); color: white; }
-    .btn-primary:hover { background: #c1121f; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(230,57,70,0.3); }
-    .btn-secondary { background: #f0f0f0; color: var(--text); }
-    .btn-secondary:hover { background: #e0e0e0; }
-    .btn-danger { background: #fff0f0; color: var(--red); border: 1.5px solid #ffc8c8; padding: 6px 10px; font-size: 0.82rem; }
-    .btn-danger:hover { background: var(--red); color: white; }
-    .btn-sm { padding: 5px 8px; font-size: 0.8rem; border-radius: 6px; background: #f0f0f0; border: none; cursor: pointer; }
-    .btn-sm:hover { background: var(--red); color: white; }
-    .btn-full { width: 100%; }
+table{width:100%;border-collapse:collapse;font-size:.84rem}
+th{background:#f8f9fa;border-bottom:2px solid var(--bdr);padding:8px 11px;text-align:left;font-size:.71rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--mut)}
+td{padding:9px 11px;border-bottom:1px solid #f3f4f6;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fafbfc}
 
-    .dispatch-btn {
-      width: 100%;
-      padding: 14px;
-      font-size: 1rem;
-      margin-top: 4px;
-      border-radius: 10px;
-      letter-spacing: 0.3px;
-    }
+.pbar{height:7px;background:#f0f2f5;border-radius:4px;overflow:hidden;flex:1;min-width:60px}
+.pfill{height:100%;border-radius:4px}
+.tbadge{background:#eff6ff;color:#1d4ed8;padding:3px 8px;border-radius:5px;font-size:.76rem;font-weight:700}
+.tbadge.slow{background:#fff1f2;color:#be123c}
+.stars{color:var(--ora);font-size:.76rem;letter-spacing:1px}
 
-    /* Results */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-    .stat-card {
-      background: #fafafa;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px 14px;
-      text-align: center;
-    }
-    .stat-card .val { font-size: 1.5rem; font-weight: 700; color: var(--red); }
-    .stat-card .lbl { font-size: 0.72rem; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.3px; }
+.cond-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:12px}
+.cond-card{background:#fff;border:1.5px solid var(--bdr);border-radius:10px;padding:14px;transition:border-color .2s,box-shadow .2s}
+.cond-card:hover{border-color:var(--red);box-shadow:0 2px 12px rgba(230,57,70,.1)}
+.cond-card .nm{font-weight:700;font-size:.92rem;margin-bottom:8px}
+.cond-detail{font-size:.79rem;color:var(--mut);margin-bottom:3px}
+.cond-detail strong{color:var(--txt)}
 
-    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
-    th {
-      background: #fafafa;
-      border-bottom: 2px solid var(--border);
-      padding: 10px 12px;
-      text-align: left;
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
-      color: var(--muted);
-    }
-    td { padding: 11px 12px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background: #fffaf9; }
+.site-card{background:#fff;border:1.5px solid var(--bdr);border-radius:var(--r);margin-bottom:14px;overflow:hidden}
+.sch{padding:12px 15px;background:#fafbfc;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.scb{padding:13px 15px}
+.egrid{display:grid;grid-template-columns:1fr 78px 34px;gap:6px;align-items:center;margin-bottom:6px}
+.egh{display:grid;grid-template-columns:1fr 78px 34px;gap:6px;font-size:.7rem;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.4px;padding-bottom:5px;margin-bottom:5px;border-bottom:1px solid var(--bdr)}
 
-    .progress-wrap { display: flex; align-items: center; gap: 8px; }
-    .progress-bar {
-      flex: 1;
-      height: 8px;
-      background: #f0f0f0;
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--red), #ff6b6b);
-      border-radius: 4px;
-      transition: width .5s ease;
-    }
-    .progress-pct { font-size: 0.8rem; font-weight: 600; color: var(--muted); min-width: 36px; }
+.dot{width:11px;height:11px;border-radius:50%;flex-shrink:0}
+.sdot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
 
-    .speed-star { color: #f4a261; font-size: 0.82rem; }
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;align-items:center;justify-content:center}
+.modal-ov.open{display:flex}
+.modal{background:#fff;border-radius:14px;padding:24px;width:100%;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,.2);margin:16px}
+.modal h2{font-size:1rem;margin-bottom:16px}
+.mfoot{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
 
-    .empty-state {
-      text-align: center;
-      padding: 40px 20px;
-      color: var(--muted);
-    }
-    .empty-state .icon { font-size: 2.5rem; margin-bottom: 10px; }
-    .empty-state p { font-size: 0.9rem; }
+.toast{position:fixed;bottom:22px;right:22px;background:#1a1d23;color:#fff;padding:9px 16px;border-radius:8px;font-size:.84rem;font-weight:500;opacity:0;transform:translateY(8px);transition:all .3s;pointer-events:none;z-index:9999}
+.toast.show{opacity:1;transform:translateY(0)}
 
-    .time-chip {
-      background: #f0f4ff;
-      color: #3a5bd9;
-      padding: 3px 8px;
-      border-radius: 5px;
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
+.empty{text-align:center;padding:36px 20px;color:var(--mut)}
+.empty .ic{font-size:2.2rem;margin-bottom:8px}
 
-    .print-bar {
-      display: flex;
-      justify-content: flex-end;
-      gap: 8px;
-      padding: 10px 18px;
-      border-top: 1px solid var(--border);
-      background: #fafafa;
-    }
+.tip{background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:9px 12px;font-size:.79rem;color:#78350f;margin-top:8px}
 
-    .difficulty-val {
-      min-width: 110px;
-      text-align: right;
-    }
-
-    .tip {
-      background: #fff8e6;
-      border: 1px solid #ffd166;
-      border-radius: 8px;
-      padding: 10px 12px;
-      font-size: 0.82rem;
-      color: #7a5c00;
-      margin-top: 10px;
-    }
-
-    @media print {
-      header, .left-panel, .print-bar { display: none; }
-      .main { display: block; max-width: 100%; padding: 0; }
-      .card { box-shadow: none; border: 1px solid #ccc; }
-    }
-  </style>
+@media print{header,.tabs-nav,.left-col,.btn,.modal-ov{display:none!important}.page{padding:0;max-width:100%}.two-col{display:block}.card,.sr,.site-card{box-shadow:none;border:1px solid #ccc}}
+</style>
 </head>
 <body>
 
-<header>
-  <span class="emoji">🍓</span>
-  <div>
-    <h1>Dispatch Fraises</h1>
-    <p>Répartition des commandes de conditionnement</p>
-  </div>
-</header>
+<div class="toast" id="toast"></div>
 
-<div class="main">
-
-  <!-- LEFT PANEL -->
-  <div class="left-panel">
-
-    <!-- Paramètres commande -->
-    <div class="card" style="margin-bottom:16px">
-      <div class="card-header">⚙️ Paramètres commande</div>
-      <div class="card-body">
-
-        <div class="form-row">
-          <label>Quantité totale</label>
-          <div style="display:flex;gap:8px">
-            <input type="number" id="qty" value="500" min="1" style="flex:1">
-            <select id="unit" style="width:110px">
-              <option value="barquettes">Barquettes</option>
-              <option value="kg">kg</option>
-              <option value="caisses">Caisses</option>
-              <option value="plateaux">Plateaux</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <label>Mode de répartition</label>
-          <div class="mode-toggle">
-            <button class="mode-btn active" onclick="setMode('equitable', this)">⚖️ Équitable</button>
-            <button class="mode-btn" onclick="setMode('rendement', this)">⚡ Par rendement</button>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <label>Difficulté du conditionnement <span id="diff-badge" class="badge badge-medium">Normale</span></label>
-          <div class="slider-wrap">
-            <input type="range" id="difficulty" min="1" max="5" value="3" oninput="updateDifficulty(this.value)">
-            <span class="difficulty-val" id="diff-label">Normale (×1.0)</span>
-          </div>
-          <div class="slider-labels">
-            <span>Très facile</span>
-            <span>Très difficile</span>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <label>Rendement de base moyen (unités/h)</label>
-          <input type="number" id="base-rate" value="80" min="1" title="Combien d'unités un employé moyen (vitesse 5/10) conditionne par heure">
-          <div class="tip">💡 Ex: un employé moyen à vitesse 5/10 conditionne <strong id="base-preview">80</strong> barquettes/h</div>
-        </div>
-
-      </div>
+<!-- Modal conditionnement -->
+<div class="modal-ov" id="modal-cond">
+  <div class="modal">
+    <h2 id="mcond-title">Nouveau conditionnement</h2>
+    <input type="hidden" id="cond-eid">
+    <div class="fl"><span class="lbl">Nom</span><input type="text" id="cond-name" placeholder="Ex: Barquette 250g"></div>
+    <div class="fl"><span class="lbl">Poids unitaire</span>
+      <div class="ig"><input type="number" id="cond-wt" value="250" min="1"><span class="sfx">grammes</span></div>
     </div>
-
-    <!-- Employés -->
-    <div class="card">
-      <div class="card-header">👷 Employés
-        <button class="btn btn-sm" style="margin-left:auto" onclick="addEmployee()">+ Ajouter</button>
-      </div>
-      <div class="card-body">
-        <div style="display:grid;grid-template-columns:1fr 90px 34px;gap:8px;margin-bottom:6px">
-          <span style="font-size:0.75rem;font-weight:700;color:var(--muted);text-transform:uppercase">Nom</span>
-          <span style="font-size:0.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;text-align:center">Vitesse (1-10)</span>
-          <span></span>
-        </div>
-        <div class="employee-list" id="employee-list"></div>
-        <button class="btn btn-primary btn-full dispatch-btn" onclick="dispatch()">
-          🍓 Calculer le dispatch
-        </button>
-      </div>
+    <div class="fl"><span class="lbl">Rendement de base (employé moyen vitesse 5/10)</span>
+      <div class="ig"><input type="number" id="cond-rate" value="100" min="1"><span class="sfx">unités/h</span></div>
     </div>
-  </div>
-
-  <!-- RIGHT PANEL -->
-  <div class="right-panel">
-    <div class="card" style="height:100%">
-      <div class="card-header">📊 Résultats du dispatch</div>
-
-      <div class="card-body" id="results">
-        <div class="empty-state">
-          <div class="icon">🍓</div>
-          <p>Configurez vos paramètres et cliquez sur<br><strong>«&nbsp;Calculer le dispatch&nbsp;»</strong> pour commencer.</p>
-        </div>
-      </div>
-
+    <div class="mfoot">
+      <button class="btn bs" onclick="closeModal('modal-cond')">Annuler</button>
+      <button class="btn bp" onclick="saveCond()">Enregistrer</button>
     </div>
   </div>
 </div>
 
+<header>
+  <span style="font-size:1.5rem">🍓</span>
+  <div><h1>Dispatch Fraises</h1><small>Multi-sites · Conditionnements · Employés</small></div>
+</header>
+
+<nav class="tabs-nav">
+  <button class="tab-btn active" onclick="showTab('dispatch',this)">📦 Dispatch</button>
+  <button class="tab-btn" onclick="showTab('cond',this)">⚙️ Conditionnements</button>
+  <button class="tab-btn" onclick="showTab('sites',this)">🏭 Sites &amp; Employés</button>
+</nav>
+
+<!-- TAB DISPATCH -->
+<div class="tab-pane active" id="tab-dispatch">
+  <div class="page">
+    <div class="two-col">
+      <div class="left-col">
+
+        <div class="card">
+          <div class="ch">📋 Paramètres commande</div>
+          <div class="cb">
+            <div class="fl">
+              <span class="lbl">Conditionnement</span>
+              <select id="sel-cond" onchange="onCondChange()"></select>
+              <div id="cond-info" style="font-size:.77rem;color:var(--mut);margin-top:4px"></div>
+            </div>
+            <div class="fl">
+              <span class="lbl">Quantité totale à dispatcher</span>
+              <div class="ig">
+                <input type="number" id="qty" value="2000" min="1" oninput="onQtyChange()">
+                <span class="sfx" id="qty-sfx">unités</span>
+              </div>
+              <div id="qty-kg" style="font-size:.77rem;color:var(--mut);margin-top:4px"></div>
+            </div>
+            <div class="fl">
+              <span class="lbl">Répartition employés</span>
+              <div class="mode-tgl">
+                <button class="mbtn active" onclick="setMode('equitable',this)">⚖️ Équitable</button>
+                <button class="mbtn" onclick="setMode('rendement',this)">⚡ Par rendement</button>
+              </div>
+            </div>
+            <div class="fl">
+              <span class="lbl">Difficulté <span id="dbadge" class="dbadge d3">Normale</span></span>
+              <div style="display:flex;align-items:center;gap:10px">
+                <input type="range" id="difficulty" min="1" max="5" value="3" oninput="onDiffChange(this.value)">
+                <span id="dfac" style="font-size:.8rem;color:var(--mut);min-width:42px">×1.00</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:.69rem;color:var(--mut);margin-top:2px"><span>Très facile</span><span>Très difficile</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="ch">🏭 Sites inclus
+            <span id="pot-total" style="margin-left:auto;font-size:.78rem;color:var(--mut)"></span>
+          </div>
+          <div class="cb" id="sites-chk">
+            <div class="empty" style="padding:16px"><div class="ic">🏭</div>
+              <p>Aucun site.<br><button class="btn bs bsm" style="margin-top:6px" onclick="showTab('sites',document.querySelectorAll('.tab-btn')[2])">+ Ajouter des sites</button></p>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn bp bfull" style="padding:13px;font-size:.93rem;border-radius:10px" onclick="runDispatch()">🍓 Calculer le dispatch</button>
+      </div>
+
+      <div id="results">
+        <div class="empty"><div class="ic">🍓</div><p>Configurez vos paramètres et cliquez sur<br><strong>« Calculer le dispatch »</strong></p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB CONDITIONNEMENTS -->
+<div class="tab-pane" id="tab-cond">
+  <div class="page">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div><h2 style="font-size:1rem;font-weight:700">Conditionnements</h2>
+        <p style="font-size:.8rem;color:var(--mut);margin-top:2px">Types d'emballage — sauvegardés automatiquement</p></div>
+      <button class="btn bp" onclick="openAddCond()">+ Nouveau</button>
+    </div>
+    <div class="cond-grid" id="cond-grid"></div>
+  </div>
+</div>
+
+<!-- TAB SITES -->
+<div class="tab-pane" id="tab-sites">
+  <div class="page">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div><h2 style="font-size:1rem;font-weight:700">Sites &amp; Employés</h2>
+        <p style="font-size:.8rem;color:var(--mut);margin-top:2px">Serres de production avec leurs équipes — sauvegardé automatiquement</p></div>
+      <button class="btn bp" onclick="addSite()">+ Nouveau site</button>
+    </div>
+    <div id="sites-list"></div>
+  </div>
+</div>
+
 <script>
-  let mode = 'equitable';
-  let employees = [
-    { name: 'Alice',   speed: 8 },
-    { name: 'Bruno',   speed: 5 },
-    { name: 'Carole',  speed: 7 },
-    { name: 'David',   speed: 4 },
-  ];
+// ── DATA ──────────────────────────────────────────────────────────────────────
+const DIFF={
+  1:{label:'Très facile',f:1.40,cls:'d1'},
+  2:{label:'Facile',     f:1.15,cls:'d2'},
+  3:{label:'Normale',    f:1.00,cls:'d3'},
+  4:{label:'Difficile',  f:0.75,cls:'d4'},
+  5:{label:'Très dure',  f:0.55,cls:'d5'},
+};
+const COLORS=['#e63946','#457b9d','#2d6a4f','#f4a261','#7b2d8b','#1d7874','#e07a5f','#3d405b'];
 
-  const diffConfig = {
-    1: { label: 'Très facile', factor: 1.40, badge: 'badge-easy',   txt: '×1.40' },
-    2: { label: 'Facile',      factor: 1.15, badge: 'badge-easy',   txt: '×1.15' },
-    3: { label: 'Normale',     factor: 1.00, badge: 'badge-medium', txt: '×1.00' },
-    4: { label: 'Difficile',   factor: 0.75, badge: 'badge-hard',   txt: '×0.75' },
-    5: { label: 'Très dure',   factor: 0.55, badge: 'badge-hard',   txt: '×0.55' },
-  };
+let _nid=200;
+const uid=()=>++_nid;
 
-  function setMode(m, btn) {
-    mode = m;
-    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  }
+let D={
+  conds:[
+    {id:1,name:'Barquette 250g', wt:250,  rate:120},
+    {id:2,name:'Barquette 500g', wt:500,  rate:80},
+    {id:3,name:'Caisse 5kg',     wt:5000, rate:25},
+    {id:4,name:'Plateau 1kg',    wt:1000, rate:50},
+  ],
+  sites:[
+    {id:10,name:'Serre A',pot:800, emps:[{id:11,name:'Alice',sp:8},{id:12,name:'Bruno',sp:5}]},
+    {id:20,name:'Serre B',pot:1200,emps:[{id:21,name:'Carole',sp:7},{id:22,name:'David',sp:4},{id:23,name:'Emma',sp:9}]},
+  ],
+};
 
-  function updateDifficulty(val) {
-    const d = diffConfig[val];
-    const badge = document.getElementById('diff-badge');
-    badge.textContent = d.label;
-    badge.className = 'badge ' + d.badge;
-    document.getElementById('diff-label').textContent = d.label + ' (' + d.txt + ')';
-  }
+// ── PERSISTENCE ───────────────────────────────────────────────────────────────
+function save(){localStorage.setItem('df3',JSON.stringify(D));toast('Sauvegardé ✓')}
+(function load(){try{const r=localStorage.getItem('df3');if(r)D=JSON.parse(r)}catch(e){}})();
 
-  function stars(speed) {
-    const full = Math.round(speed / 2);
-    return '★'.repeat(full) + '☆'.repeat(5 - full);
-  }
+// ── UI HELPERS ────────────────────────────────────────────────────────────────
+let mode='equitable';
 
-  function renderEmployees() {
-    const list = document.getElementById('employee-list');
-    list.innerHTML = '';
-    employees.forEach((emp, i) => {
-      const row = document.createElement('div');
-      row.className = 'employee-row';
-      row.innerHTML = `
-        <input type="text" value="${emp.name}" placeholder="Nom" oninput="employees[${i}].name = this.value">
-        <input type="number" value="${emp.speed}" min="1" max="10" style="text-align:center"
-          oninput="employees[${i}].speed = Math.min(10,Math.max(1,+this.value||1)); this.value=employees[${i}].speed">
-        <button class="btn btn-danger" onclick="removeEmployee(${i})">✕</button>
-      `;
-      list.appendChild(row);
-      const info = document.createElement('div');
-      info.style.cssText = 'grid-column:1/3;font-size:0.74rem;color:#f4a261;margin-top:-4px;margin-bottom:2px;padding-left:2px';
-      info.textContent = stars(emp.speed) + '  vitesse ' + emp.speed + '/10';
-      list.appendChild(info);
-    });
-    document.getElementById('base-preview').textContent = document.getElementById('base-rate').value;
-  }
+function showTab(n,btn){
+  document.querySelectorAll('.tab-pane').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+n).classList.add('active');
+  btn.classList.add('active');
+  if(n==='dispatch'){renderChk();populateCondSel()}
+  if(n==='cond')renderCondGrid();
+  if(n==='sites')renderSitesList();
+}
 
-  function addEmployee() {
-    employees.push({ name: 'Employé ' + (employees.length + 1), speed: 5 });
-    renderEmployees();
-  }
+function setMode(m,btn){
+  mode=m;
+  document.querySelectorAll('.mbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
 
-  function removeEmployee(i) {
-    if (employees.length <= 1) return alert('Il faut au moins un employé.');
-    employees.splice(i, 1);
-    renderEmployees();
-  }
+function onDiffChange(v){
+  const d=DIFF[v];
+  const b=document.getElementById('dbadge');
+  b.textContent=d.label;b.className='dbadge '+d.cls;
+  document.getElementById('dfac').textContent='×'+d.f.toFixed(2);
+}
 
-  function formatTime(hours) {
-    if (hours < 1) return Math.round(hours * 60) + ' min';
-    const h = Math.floor(hours);
-    const m = Math.round((hours - h) * 60);
-    return m > 0 ? `${h}h${String(m).padStart(2,'0')}` : `${h}h00`;
-  }
+function onCondChange(){
+  const c=getCond();if(!c)return;
+  document.getElementById('qty-sfx').textContent=shortName(c)+'s';
+  document.getElementById('cond-info').textContent=`${c.wt}g/unité · rendement base : ${c.rate} u/h (vitesse 5/10)`;
+  onQtyChange();
+}
 
-  function dispatch() {
-    const qty      = parseFloat(document.getElementById('qty').value) || 0;
-    const unit     = document.getElementById('unit').value;
-    const diffVal  = document.getElementById('difficulty').value;
-    const baseRate = parseFloat(document.getElementById('base-rate').value) || 80;
-    const diffFac  = diffConfig[diffVal].factor;
+function onQtyChange(){
+  const c=getCond();const qty=parseFloat(document.getElementById('qty').value)||0;
+  if(!c||!qty){document.getElementById('qty-kg').textContent='';return}
+  const kg=qty*c.wt/1000;
+  document.getElementById('qty-kg').textContent=`≈ ${fmt(kg)} kg au total`;
+}
 
-    if (qty <= 0) return alert('Entrez une quantité valide.');
+function getCond(){
+  const id=parseInt(document.getElementById('sel-cond').value);
+  return D.conds.find(c=>c.id===id);
+}
 
-    // Effective rate per employee (units/h)
-    const rates = employees.map(e => ({
-      ...e,
-      rate: baseRate * (e.speed / 5) * diffFac   // speed 5/10 = base rate
-    }));
+function shortName(c){return c.name.split(' ')[0].toLowerCase()}
+function fmt(n){return (Math.round(n)||0).toLocaleString('fr-FR')}
+function fmtT(h){
+  if(!isFinite(h)||h<=0)return'–';
+  if(h<1/60)return'<1min';
+  if(h<1)return Math.round(h*60)+'min';
+  const hh=Math.floor(h),mm=Math.round((h-hh)*60);
+  return mm?`${hh}h${String(mm).padStart(2,'0')}`:`${hh}h00`;
+}
+function stars(sp){const n=Math.round(sp/2);return'★'.repeat(n)+'☆'.repeat(5-n)}
 
-    // Allocations
-    let allocs;
-    if (mode === 'equitable') {
-      const share = qty / employees.length;
-      allocs = rates.map(e => ({ ...e, alloc: share }));
-    } else {
-      const totalSpeed = rates.reduce((s, e) => s + e.speed, 0);
-      allocs = rates.map(e => ({ ...e, alloc: qty * (e.speed / totalSpeed) }));
-    }
+let toastTmr;
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.classList.add('show');
+  clearTimeout(toastTmr);toastTmr=setTimeout(()=>el.classList.remove('show'),2000);
+}
+function openModal(id){document.getElementById(id).classList.add('open')}
+function closeModal(id){document.getElementById(id).classList.remove('open')}
 
-    // Times
-    allocs = allocs.map(e => ({ ...e, time: e.alloc / e.rate }));
-
-    const maxTime   = Math.max(...allocs.map(e => e.time));
-    const avgRate   = rates.reduce((s, e) => s + e.rate, 0) / rates.length;
-    const totalTime = qty / rates.reduce((s, e) => s + e.rate, 0);
-
-    // Render
-    const results = document.getElementById('results');
-    results.innerHTML = `
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="val">${qty.toLocaleString('fr-FR')}</div>
-          <div class="lbl">${unit} à dispatcher</div>
-        </div>
-        <div class="stat-card">
-          <div class="val">${employees.length}</div>
-          <div class="lbl">Employés</div>
-        </div>
-        <div class="stat-card">
-          <div class="val">${formatTime(totalTime)}</div>
-          <div class="lbl">Durée estimée</div>
-        </div>
-      </div>
-
-      <div style="margin-bottom:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-        <span style="font-size:0.82rem;color:var(--muted)">
-          Mode : <strong>${mode === 'equitable' ? '⚖️ Équitable' : '⚡ Par rendement'}</strong>
-          &nbsp;·&nbsp; Difficulté : <strong>${diffConfig[diffVal].label}</strong>
-          &nbsp;·&nbsp; Rendement moyen : <strong>${Math.round(avgRate)} ${unit}/h</strong>
-        </span>
-      </div>
-
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Employé</th>
-            <th>Vitesse</th>
-            <th>Rendement eff.</th>
-            <th>Quantité</th>
-            <th>Part</th>
-            <th>Durée estimée</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${allocs.map((e, i) => {
-            const pct = (e.alloc / qty * 100).toFixed(1);
-            const isMax = e.time === maxTime;
-            return `
-            <tr>
-              <td style="color:var(--muted);font-weight:600">${i+1}</td>
-              <td><strong>${e.name}</strong></td>
-              <td><span class="speed-star">${stars(e.speed)}</span> <span style="font-size:0.8rem;color:var(--muted)">${e.speed}/10</span></td>
-              <td style="font-weight:600">${Math.round(e.rate)} <span style="font-size:0.78rem;font-weight:400;color:var(--muted)">${unit}/h</span></td>
-              <td><strong>${Math.round(e.alloc).toLocaleString('fr-FR')}</strong> <span style="font-size:0.8rem;color:var(--muted)">${unit}</span></td>
-              <td>
-                <div class="progress-wrap">
-                  <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
-                  <span class="progress-pct">${pct}%</span>
-                </div>
-              </td>
-              <td>
-                <span class="time-chip" style="${isMax ? 'background:#fff0f0;color:var(--red)' : ''}">
-                  ${formatTime(e.time)}
-                </span>
-                ${isMax ? ' <span style="font-size:0.75rem;color:var(--red)">⏱ max</span>' : ''}
-              </td>
-            </tr>`;
-          }).join('')}
-        </tbody>
-        <tfoot>
-          <tr style="background:#fafafa;font-weight:700">
-            <td colspan="3" style="color:var(--muted)">TOTAL</td>
-            <td>${Math.round(avgRate)} <span style="font-weight:400;font-size:0.78rem;color:var(--muted)">${unit}/h moy.</span></td>
-            <td>${qty.toLocaleString('fr-FR')} <span style="font-weight:400;font-size:0.8rem;color:var(--muted)">${unit}</span></td>
-            <td colspan="2" style="color:var(--green)">✅ ${formatTime(totalTime)} total</td>
-          </tr>
-        </tfoot>
-      </table>
-
-      <div style="margin-top:14px;padding:12px 14px;background:#f0fff4;border:1px solid #b7e4c7;border-radius:8px;font-size:0.84rem;color:#1b4332">
-        💡 <strong>Analyse :</strong>
-        ${mode === 'equitable'
-          ? `Répartition égale — l'employé le plus lent (<strong>${allocs.reduce((a,b)=>a.rate<b.rate?a:b).name}</strong>) finira en dernier (<strong>${formatTime(maxTime)}</strong>).`
-          : `Répartition proportionnelle — les employés rapides ont plus de travail mais tous finissent en ${formatTime(maxTime)} environ.`
-        }
-        Rendement collectif : <strong>${Math.round(rates.reduce((s,e)=>s+e.rate,0))} ${unit}/h</strong>.
-      </div>
-    `;
-
-    const card = document.querySelector('.right-panel .card');
-    if (!card.querySelector('.print-bar')) {
-      const bar = document.createElement('div');
-      bar.className = 'print-bar';
-      bar.innerHTML = `<button class="btn btn-secondary" onclick="window.print()">🖨️ Imprimer</button>
-                       <button class="btn btn-secondary" onclick="copyCSV()">📋 Copier CSV</button>`;
-      card.appendChild(bar);
-    }
-  }
-
-  function copyCSV() {
-    const qty     = document.getElementById('qty').value;
-    const unit    = document.getElementById('unit').value;
-    const diffVal = document.getElementById('difficulty').value;
-    const base    = parseFloat(document.getElementById('base-rate').value) || 80;
-    const fac     = diffConfig[diffVal].factor;
-    const rates   = employees.map(e => ({ ...e, rate: base*(e.speed/5)*fac }));
-    let allocs;
-    if (mode === 'equitable') {
-      allocs = rates.map(e => ({ ...e, alloc: qty/employees.length }));
-    } else {
-      const tot = rates.reduce((s,e)=>s+e.speed,0);
-      allocs = rates.map(e => ({ ...e, alloc: qty*(e.speed/tot) }));
-    }
-    allocs = allocs.map(e => ({ ...e, time: e.alloc/e.rate }));
-
-    let csv = 'Employé;Vitesse;Rendement (u/h);Quantité;Part %;Durée estimée\n';
-    allocs.forEach(e => {
-      csv += `${e.name};${e.speed};${Math.round(e.rate)};${Math.round(e.alloc)};${(e.alloc/qty*100).toFixed(1)}%;${formatTime(e.time)}\n`;
-    });
-    navigator.clipboard.writeText(csv).then(() => alert('CSV copié dans le presse-papier ✓'));
-  }
-
-  // Init
-  renderEmployees();
-  document.getElementById('base-rate').addEventListener('input', () => {
-    document.getElementById('base-preview').textContent = document.getElementById('base-rate').value;
+// ── CONDITIONNEMENTS ──────────────────────────────────────────────────────────
+function populateCondSel(){
+  const sel=document.getElementById('sel-cond');
+  const prev=sel.value;
+  sel.innerHTML='';
+  if(!D.conds.length){sel.innerHTML='<option disabled>Aucun conditionnement</option>';return}
+  D.conds.forEach(c=>{
+    const o=document.createElement('option');
+    o.value=c.id;o.textContent=`${c.name} (${c.wt<1000?c.wt+'g':c.wt/1000+'kg'})`;
+    sel.appendChild(o);
   });
+  if(prev&&D.conds.find(c=>c.id==prev))sel.value=prev;
+  onCondChange();
+}
+
+function renderCondGrid(){
+  const g=document.getElementById('cond-grid');
+  if(!D.conds.length){
+    g.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="ic">📦</div><p>Aucun conditionnement.<br>Cliquez sur <strong>+ Nouveau</strong>.</p></div>`;
+    return;
+  }
+  g.innerHTML=D.conds.map(c=>`
+    <div class="cond-card">
+      <div class="nm">📦 ${c.name}</div>
+      <div class="cond-detail">Poids : <strong>${c.wt>=1000?c.wt/1000+' kg':c.wt+' g'}</strong></div>
+      <div class="cond-detail">Rendement base : <strong>${c.rate} u/h</strong></div>
+      <div class="cond-detail" style="color:#aaa;font-size:.74rem">Pour un employé vitesse 5/10</div>
+      <div style="display:flex;gap:6px;margin-top:11px">
+        <button class="btn bs bsm" style="flex:1" onclick="editCond(${c.id})">✏️ Modifier</button>
+        <button class="btn bd bsm" onclick="deleteCond(${c.id})">🗑</button>
+      </div>
+    </div>`).join('');
+}
+
+function openAddCond(){
+  document.getElementById('cond-eid').value='';
+  document.getElementById('mcond-title').textContent='Nouveau conditionnement';
+  document.getElementById('cond-name').value='';
+  document.getElementById('cond-wt').value='250';
+  document.getElementById('cond-rate').value='100';
+  openModal('modal-cond');
+}
+
+function editCond(id){
+  const c=D.conds.find(x=>x.id===id);
+  document.getElementById('cond-eid').value=id;
+  document.getElementById('mcond-title').textContent='Modifier le conditionnement';
+  document.getElementById('cond-name').value=c.name;
+  document.getElementById('cond-wt').value=c.wt;
+  document.getElementById('cond-rate').value=c.rate;
+  openModal('modal-cond');
+}
+
+function saveCond(){
+  const name=document.getElementById('cond-name').value.trim();
+  const wt=parseInt(document.getElementById('cond-wt').value);
+  const rate=parseInt(document.getElementById('cond-rate').value);
+  if(!name)return alert('Entrez un nom.');
+  if(!wt||wt<1)return alert('Poids invalide.');
+  if(!rate||rate<1)return alert('Rendement invalide.');
+  const eid=document.getElementById('cond-eid').value;
+  if(eid){const c=D.conds.find(x=>x.id==eid);c.name=name;c.wt=wt;c.rate=rate}
+  else D.conds.push({id:uid(),name,wt,rate});
+  save();closeModal('modal-cond');renderCondGrid();populateCondSel();
+}
+
+function deleteCond(id){
+  if(!confirm('Supprimer ce conditionnement ?'))return;
+  D.conds=D.conds.filter(c=>c.id!==id);
+  save();renderCondGrid();populateCondSel();
+}
+
+// ── SITES ─────────────────────────────────────────────────────────────────────
+function renderSitesList(){
+  const el=document.getElementById('sites-list');
+  if(!D.sites.length){
+    el.innerHTML=`<div class="empty"><div class="ic">🏭</div><p>Aucun site. Cliquez sur <strong>+ Nouveau site</strong>.</p></div>`;
+    return;
+  }
+  el.innerHTML=D.sites.map((s,si)=>{
+    const col=COLORS[si%COLORS.length];
+    return `
+    <div class="site-card">
+      <div class="sch">
+        <div class="sdot" style="background:${col}"></div>
+        <input type="text" value="${s.name}" style="font-weight:700;font-size:.93rem;border:none;background:transparent;padding:0;flex:1;color:var(--txt)"
+          onchange="updateSiteName(${s.id},this.value)">
+        <div style="display:flex;align-items:center;gap:6px">
+          <span class="lbl" style="margin:0;white-space:nowrap">Potentiel</span>
+          <div class="ig" style="width:140px">
+            <input type="number" value="${s.pot}" min="1" style="text-align:right"
+              onchange="updateSitePot(${s.id},this.value)">
+            <span class="sfx">kg</span>
+          </div>
+        </div>
+        <button class="btn bd bsm" onclick="deleteSite(${s.id})">🗑 Suppr.</button>
+      </div>
+      <div class="scb">
+        <div class="egh"><span>Employé</span><span style="text-align:center">Vitesse 1–10</span><span></span></div>
+        <div id="el-${s.id}">${s.emps.map(e=>empRow(s.id,e)).join('')}</div>
+        <button class="btn bs bsm" style="margin-top:6px" onclick="addEmp(${s.id})">+ Ajouter un employé</button>
+      </div>
+    </div>`}).join('');
+}
+
+function empRow(sid,e){
+  return `<div class="egrid" id="er-${e.id}">
+    <input type="text" value="${e.name}" placeholder="Nom" onchange="updEmpName(${sid},${e.id},this.value)">
+    <input type="number" value="${e.sp}" min="1" max="10" style="text-align:center"
+      onchange="updEmpSp(${sid},${e.id},this.value)">
+    <button class="bxs" onclick="removeEmp(${sid},${e.id})">✕</button>
+  </div>`;
+}
+
+function addSite(){
+  D.sites.push({id:uid(),name:'Serre '+String.fromCharCode(65+D.sites.length),pot:500,emps:[]});
+  save();renderSitesList();renderChk();
+}
+function deleteSite(id){
+  if(!confirm('Supprimer ce site et ses employés ?'))return;
+  D.sites=D.sites.filter(s=>s.id!==id);
+  save();renderSitesList();renderChk();
+}
+function updateSiteName(id,v){const s=D.sites.find(x=>x.id===id);if(s){s.name=v;save();renderChk()}}
+function updateSitePot(id,v){const s=D.sites.find(x=>x.id===id);if(s){s.pot=parseFloat(v)||0;save();renderChk()}}
+
+function addEmp(sid){
+  const s=D.sites.find(x=>x.id===sid);if(!s)return;
+  const e={id:uid(),name:'Employé '+(s.emps.length+1),sp:5};
+  s.emps.push(e);save();
+  document.getElementById('el-'+sid).insertAdjacentHTML('beforeend',empRow(sid,e));
+}
+function removeEmp(sid,eid){
+  const s=D.sites.find(x=>x.id===sid);if(!s)return;
+  if(s.emps.length<=1)return alert('Un site doit avoir au moins un employé.');
+  s.emps=s.emps.filter(e=>e.id!==eid);save();
+  document.getElementById('er-'+eid)?.remove();
+}
+function updEmpName(sid,eid,v){const s=D.sites.find(x=>x.id===sid);const e=s?.emps.find(x=>x.id===eid);if(e){e.name=v;save()}}
+function updEmpSp(sid,eid,v){const s=D.sites.find(x=>x.id===sid);const e=s?.emps.find(x=>x.id===eid);if(e){e.sp=Math.min(10,Math.max(1,parseInt(v)||1));save()}}
+
+// ── DISPATCH CHECKLIST ────────────────────────────────────────────────────────
+function renderChk(){
+  const el=document.getElementById('sites-chk');
+  if(!D.sites.length){
+    el.innerHTML=`<div class="empty" style="padding:14px"><div class="ic">🏭</div>
+      <p>Aucun site.<br><button class="btn bs bsm" style="margin-top:6px" onclick="showTab('sites',document.querySelectorAll('.tab-btn')[2])">+ Ajouter des sites</button></p></div>`;
+    document.getElementById('pot-total').textContent='';return;
+  }
+  const totPot=D.sites.reduce((s,x)=>s+x.pot,0);
+  el.innerHTML=D.sites.map((s,si)=>{
+    const col=COLORS[si%COLORS.length];
+    const pct=totPot>0?(s.pot/totPot*100).toFixed(1):0;
+    return `<div class="chkrow" onclick="toggleChk(${s.id})">
+      <input type="checkbox" id="chk-${s.id}" checked onclick="event.stopPropagation();updPotDisplay()">
+      <label class="cl" for="chk-${s.id}" onclick="event.stopPropagation()">
+        <span style="display:flex;align-items:center;gap:7px">
+          <span class="dot" style="background:${col}"></span>
+          <strong>${s.name}</strong>
+          <span style="font-size:.76rem;color:var(--mut)">${s.emps.length} emp.</span>
+        </span>
+        <span style="display:flex;align-items:center;gap:5px">
+          <span style="font-size:.76rem;color:var(--mut)">${pct}%</span>
+          <span class="pot-tag">${s.pot} kg</span>
+        </span>
+      </label>
+    </div>`}).join('');
+  updPotDisplay();
+}
+
+function toggleChk(id){
+  const cb=document.getElementById('chk-'+id);
+  if(cb)cb.checked=!cb.checked;
+  updPotDisplay();
+}
+
+function updPotDisplay(){
+  const active=D.sites.filter(s=>document.getElementById('chk-'+s.id)?.checked);
+  const tot=active.reduce((s,x)=>s+x.pot,0);
+  document.getElementById('pot-total').textContent=`Potentiel : ${fmt(tot)} kg`;
+}
+
+// ── DISPATCH ──────────────────────────────────────────────────────────────────
+function runDispatch(){
+  const c=getCond();
+  const qty=parseFloat(document.getElementById('qty').value)||0;
+  const dlv=parseInt(document.getElementById('difficulty').value);
+  const df=DIFF[dlv].f;
+
+  if(!c)return alert('Aucun conditionnement sélectionné.');
+  if(qty<=0)return alert('Quantité invalide.');
+
+  const selected=D.sites.filter(s=>document.getElementById('chk-'+s.id)?.checked);
+  if(!selected.length)return alert('Sélectionnez au moins un site.');
+  const noEmp=selected.find(s=>!s.emps.length);
+  if(noEmp)return alert(`Le site "${noEmp.name}" n'a aucun employé.`);
+
+  const totPot=selected.reduce((s,x)=>s+x.pot,0);
+  const totKg=qty*c.wt/1000;
+
+  const srs=selected.map(site=>{
+    const si=D.sites.indexOf(site);
+    const col=COLORS[si%COLORS.length];
+    const ratio=site.pot/totPot;
+    const sKg=totKg*ratio;
+    const sUnits=sKg/(c.wt/1000);
+
+    const emps=site.emps.map(e=>({...e,effRate:c.rate*(e.sp/5)*df}));
+    let res;
+    if(mode==='equitable'){
+      const sh=sUnits/emps.length;
+      res=emps.map(e=>({...e,alloc:sh,time:sh/e.effRate}));
+    } else {
+      const totSp=emps.reduce((s,e)=>s+e.sp,0);
+      res=emps.map(e=>{const a=sUnits*(e.sp/totSp);return{...e,alloc:a,time:a/e.effRate}});
+    }
+    const maxT=Math.max(...res.map(e=>e.time));
+    const totRate=emps.reduce((s,e)=>s+e.effRate,0);
+    return{site,col,sKg,sUnits,ratio,emps:res,maxT,totRate};
+  });
+
+  const gMaxT=Math.max(...srs.map(r=>r.maxT));
+  const gTotRate=srs.reduce((s,r)=>s+r.totRate,0);
+  const totEmp=srs.reduce((s,r)=>s+r.emps.length,0);
+  const estDur=totKg/(gTotRate*c.wt/1000);
+  const sn=shortName(c);
+
+  document.getElementById('results').innerHTML=`
+    <div class="stats-row">
+      <div class="stbox"><div class="v">${fmt(qty)}</div><div class="l">${sn}s</div></div>
+      <div class="stbox"><div class="v">${fmt(totKg)} kg</div><div class="l">Poids total</div></div>
+      <div class="stbox"><div class="v">${selected.length}</div><div class="l">Sites actifs</div></div>
+      <div class="stbox"><div class="v">${fmtT(estDur)}</div><div class="l">Durée estimée</div></div>
+    </div>
+    <div style="font-size:.8rem;color:var(--mut);margin-bottom:14px">
+      <strong>${c.name}</strong> ·
+      ${mode==='equitable'?'⚖️ Équitable':'⚡ Par rendement'} ·
+      Difficulté : <strong>${DIFF[dlv].label} (×${df})</strong> ·
+      <strong>${totEmp} employés</strong>
+    </div>
+    ${srs.map(r=>`
+    <div class="sr">
+      <div class="srh">
+        <div class="sdot" style="background:${r.col}"></div>
+        <h3>${r.site.name}</h3>
+        <div class="stags">
+          <span class="tag tb">${fmt(r.sUnits)} ${sn}s</span>
+          <span class="tag tg">${r.sKg.toLocaleString('fr-FR',{maximumFractionDigits:1})} kg</span>
+          <span class="tag to">${(r.ratio*100).toFixed(1)}% commande</span>
+        </div>
+      </div>
+      <table>
+        <thead><tr><th>Employé</th><th>Vitesse</th><th>Rend. eff.</th><th>Quantité</th><th>Part</th><th>Durée</th></tr></thead>
+        <tbody>${r.emps.map(e=>{
+          const pct=r.sUnits>0?e.alloc/r.sUnits*100:0;
+          const isMax=Math.abs(e.time-r.maxT)<.001;
+          return`<tr>
+            <td><strong>${e.name}</strong></td>
+            <td><span class="stars">${stars(e.sp)}</span> <span style="font-size:.76rem;color:var(--mut)">${e.sp}/10</span></td>
+            <td style="font-weight:600">${Math.round(e.effRate)} <span style="font-size:.76rem;font-weight:400;color:var(--mut)">u/h</span></td>
+            <td><strong>${fmt(e.alloc)}</strong> <span style="font-size:.76rem;color:var(--mut)">${sn}s</span></td>
+            <td><div style="display:flex;align-items:center;gap:6px">
+              <div class="pbar"><div class="pfill" style="width:${pct.toFixed(1)}%;background:${r.col}"></div></div>
+              <span style="font-size:.76rem;font-weight:600;color:var(--mut);min-width:34px">${pct.toFixed(1)}%</span>
+            </div></td>
+            <td><span class="tbadge${isMax&&mode==='equitable'?' slow':''}">${fmtT(e.time)}</span></td>
+          </tr>`}).join('')}</tbody>
+        <tfoot><tr style="background:#fafbfc;font-weight:700">
+          <td colspan="2" style="color:var(--mut)">TOTAL SITE</td>
+          <td>${Math.round(r.totRate)} <span style="font-weight:400;font-size:.76rem;color:var(--mut)">u/h</span></td>
+          <td>${fmt(r.sUnits)} <span style="font-weight:400;font-size:.76rem;color:var(--mut)">${sn}s</span></td>
+          <td>100%</td>
+          <td style="color:var(--grn)">⏱ ${fmtT(r.maxT)}</td>
+        </tr></tfoot>
+      </table>
+    </div>`).join('')}
+    <div style="background:#f0fff4;border:1.5px solid #b7e4c7;border-radius:10px;padding:12px 15px;font-size:.82rem;color:#1b4332;margin-top:4px">
+      💡 <strong>Bilan :</strong> ${selected.length} site(s) · ${totEmp} employés ·
+      Capacité collective : <strong>${fmt(gTotRate)} u/h</strong> ·
+      ${mode==='equitable'?'Mode équitable : les employés lents finissent en dernier par site.':'Mode rendement : les rapides ont plus de travail mais finissent en même temps.'}
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px">
+      <button class="btn bs" onclick="window.print()">🖨️ Imprimer</button>
+      <button class="btn bs" onclick="exportCSV()">📋 CSV</button>
+    </div>`;
+
+  window._lr={srs,c,qty,totKg,sn};
+}
+
+function exportCSV(){
+  if(!window._lr)return;
+  const{srs,c,sn}=window._lr;
+  let csv='Site;Potentiel kg;Employé;Vitesse;Rend. eff. u/h;Quantité;Part %;Durée\n';
+  srs.forEach(r=>r.emps.forEach(e=>{
+    const pct=r.sUnits>0?(e.alloc/r.sUnits*100).toFixed(1):0;
+    csv+=`${r.site.name};${r.site.pot};${e.name};${e.sp};${Math.round(e.effRate)};${Math.round(e.alloc)};${pct}%;${fmtT(e.time)}\n`;
+  }));
+  navigator.clipboard.writeText(csv).then(()=>toast('CSV copié ✓'));
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+populateCondSel();
+renderChk();
 </script>
 </body>
 </html>
