@@ -13,8 +13,12 @@
 
 ## Aperçu
 
+| Conversion par lot | Activation de la licence | Suite DamLab |
+|---|---|---|
+| ![Conversion DamConvert](assets/screenshot_conversion.png) | ![Activation DamConvert](assets/screenshot_activation.png) | ![Nos logiciels DamLab](assets/screenshot_logiciels.png) |
+
 <p align="center">
-  <img src="assets/damconvert.png" alt="Logo DamConvert" width="420">
+  <img src="assets/damconvert.png" alt="Logo DamConvert" width="360">
 </p>
 
 ---
